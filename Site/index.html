@@ -140,7 +140,7 @@
 
       <!-- Slide 1 -->
       <div class="carousel-item active">
-        <div class="full-bg" style="background-image: url('images/salao.png');">
+        <div class="full-bg" style="background-image: url('images/fundoprincipal.png');">
           <div class="container h-100 d-flex align-items-center">
             <div class="detail-box text-white">
               <h1>Transforme seu visual</h1>
@@ -155,7 +155,7 @@
 
       <!-- Slide 2 -->
       <div class="carousel-item">
-        <div class="full-bg" style="background-image: url('images/cabelo.png');">
+        <div class="full-bg" style="background-image: url('images/alisamento.png');">
           <div class="container h-100 d-flex align-items-center">
             <div class="detail-box text-white">
               <h1>Estilo que inspira</h1>
@@ -170,7 +170,7 @@
 
       <!-- Slide 3 -->
       <div class="carousel-item">
-        <div class="full-bg" style="background-image: url('images/cabelo3.jpg');">
+        <div class="full-bg" style="background-image: url('images/cabelo.png');">
           <div class="container h-100 d-flex align-items-center">
             <div class="detail-box text-white">
               <h1>Beleza com leveza</h1>
@@ -209,9 +209,9 @@
       <ul class="filters_menu">
         <li class="active" data-filter="*">Todos</li>
         <li data-filter=".penteados">Penteados</li>
+        <li data-filter=".corte">corte</li>
         <li data-filter=".combos">combos</li>
         <li data-filter=".procedimentos">Procedimentos</li>
-        <li data-filter=".corte">corte</li>
       </ul>
 
       <div class="filters-content">
@@ -1164,6 +1164,31 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
+<script>
+ //inicialindo o catalogo
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var carousel = document.getElementById('customCarousel1');
+    if (carousel) {
+      var myCarousel = new bootstrap.Carousel(carousel, {
+        interval: 4000,
+        wrap: true,
+        ride: 'carousel'
+      });
+      
+      carousel.addEventListener('mouseenter', function() {
+        myCarousel.pause();
+      });
+      carousel.addEventListener('mouseleave', function() {
+        myCarousel.cycle();
+      });
+      
+      setTimeout(() => {
+        myCarousel.to(0);
+      }, 100);
+    }
+  });
+</script>
 
 </body>
 
