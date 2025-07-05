@@ -30,6 +30,7 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
 
+
 </head>
 
 <body>
@@ -69,9 +70,10 @@
               </li>
             </ul>
             <div class="user_option">
-              <a href="" class="user_link">
-                <i class="fa fa-user" aria-hidden="true"></i>
+              <a href="#" id="abrirLoginModal" class="user_link">
+              <i class="fa fa-user" aria-hidden="true"></i>
               </a>
+
               <a class="cart_link" href="#">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                   <g>
@@ -751,7 +753,15 @@
       </div>
     </div>
   </footer>
-     
+    <script>
+  // Carrega o modal de login via fetch
+  fetch('login-modal.html')
+    .then(res => res.text())
+    .then(html => {
+      document.body.insertAdjacentHTML('beforeend', html);
+    });
+</script>
+
   <!-- footer section -->
 
   <!-- jQery -->
@@ -770,10 +780,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
-  <!-- Google Map -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-  </script>
-  <!-- End Google Map -->
+  <!-- loggin js-->
+  <script src="js/login.js"></script>
+
+
 <script>
  //inicialindo o catalogo
 

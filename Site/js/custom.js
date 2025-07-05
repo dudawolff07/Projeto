@@ -80,13 +80,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-// Google Maps
-if(document.getElementById("googleMap")) {
-    function myMap() {
-        var map = new google.maps.Map(document.getElementById("googleMap"), {
-            center: new google.maps.LatLng(40.712775, -74.005973),
-            zoom: 18
-        });
-    }
-}
