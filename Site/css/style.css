@@ -5,7 +5,311 @@ body {
   background-color: #ffffff;
   overflow-x: hidden;
 }
+/* NOVO ESTILO AGENDA */
+ body {
+      background-color: #fafafa;
+    }
+    
+    .header_section {
+      background: #f783ac;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    }
+    
+    .agenda-section {
+      padding: 60px 0;
+    }
+    
+    .professional-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      height: 100%;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+    
+    .form-container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .btn-rosa {
+      background-color: #e83e8c;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 30px;
+      border: none;
+      transition: all 0.3s;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    
+    .btn-rosa:hover {
+      background-color: #d42d7b;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(232, 62, 140, 0.3);
+    }
+    
+    .contact-icon {
+      color: #e83e8c;
+      width: 20px;
+      margin-right: 10px;
+    }
+    
+    .social-links a {
+      margin-right: 15px;
+      color: #e83e8c;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    
+    .social-links a:hover {
+      color: #d42d7b;
+      transform: scale(1.1);
+    }
+    
+    .calendar-container {
+      margin: 40px 0;
+    }
+    
+    .professional-img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #f8d7e6;
+      margin-bottom: 20px;
+    }
+    
+    .password-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+    
+    /* Espaçamentos e títulos */
+    .section-title {
+      margin-bottom: 50px;
+      position: relative;
+    }
+    
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #e83e8c;
+      margin: 15px auto 0;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    @media (max-width: 768px) {
+      .agenda-section {
+        padding: 40px 0;
+      }
+      .agenda-section .navbar-brand span,
+      .agenda-section .nav-link {
+  color: #fff !important;
+}
+.agenda-section .header_section {
+  background-color: #f783ac !important;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+      .professional-card, .form-container {
+        padding: 25px;
+      }
+      
+      .section-title {
+        margin-bottom: 30px;
+      }
+      /* Correção de visibilidade do menu na página agenda */
+      /* Correção de visibilidade do menu na página agenda */
+.header_section.menu-visivel {
+  background-color: #f783ac !important;
+  position: relative !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  z-index: 10;
+}
 
+.header_section.menu-visivel .nav-link,
+.header_section.menu-visivel .navbar-brand span,
+.header_section.menu-visivel .user_link,
+.header_section.menu-visivel .cart_link svg {
+  color: white !important;
+  fill: white !important;
+}
+
+.header_section.menu-visivel .nav-link:hover {
+  color: #ffdeeb !important;
+}
+
+.header_section.menu-visivel .navbar-toggler span {
+  background-color: white !important;
+}
+
+.header_section.menu-visivel {
+  background-color: #f783ac !important;
+  position: relative !important;
+}
+
+.header_section.menu-visivel .nav-link,
+.header_section.menu-visivel .navbar-brand span,
+.header_section.menu-visivel .user_link,
+.header_section.menu-visivel .cart_link svg {
+  color: white !important;
+  fill: white !important;
+}
+
+.header_section.menu-visivel .nav-link:hover {
+  color: #ffdeeb !important;
+}
+
+.header_section.menu-visivel .navbar-toggler span {
+  background-color: white !important;
+}
+
+    }
+    /* Cor de fundo do menu */
+.bg-pink {
+    background-color: #f783ac !important; /* Rosa do seu tema */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+/* Cor dos itens do menu */
+.bg-pink .navbar-brand span,
+.bg-pink .nav-link {
+    color: white !important;
+}
+
+/* Efeito hover nos links */
+.bg-pink .nav-link:hover {
+    color: #ffdeeb !important; /* Rosa mais claro para hover */
+}
+
+/* Cor do ícone do menu hamburguer (mobile) */
+.bg-pink .navbar-toggler span {
+    background-color: white !important;
+}
+:root {
+      --rosa-claro: #fff0f6;
+      --rosa-medio: #ffdeeb;
+      --rosa-escuro: #fcc2d7;
+      --rosa-destaque: #f783ac;
+      --rosa-profundo: #e64980;
+    }
+    
+    body {
+      background-color: white;
+      padding-top: 0;
+    }
+    
+    .header_section {
+      background-color: f783ac;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 15px 0;
+    }
+    
+    .navbar-brand span {
+      color: var(--rosa-profundo);
+      font-weight: 600;
+      font-size: 24px;
+    }
+    
+    .contact_section {
+      padding: 40px 0;
+      background-color: white;
+    }
+    
+    .professional-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(247, 131, 172, 0.1);
+      border: 1px solid var(--rosa-medio);
+      height: 100%;
+      margin-top: 30px;
+    }
+    
+    .contact-icon {
+      color: var(--rosa-destaque);
+      font-size: 22px;
+      margin-right: 10px;
+    }
+    
+    .btn-rosa {
+      background-color: var(--rosa-destaque);
+      border-color: var(--rosa-destaque);
+      color: white;
+      padding: 10px 25px;
+      border-radius: 30px;
+      transition: all 0.3s;
+    }
+    
+    .btn-rosa:hover {
+      background-color: var(--rosa-profundo);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(247, 131, 172, 0.3);
+    }
+    
+    h2, h3, h4 {
+      color: var(--rosa-profundo);
+    }
+    
+    .service-card {
+      background: #f783ac;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+      border: 1px solid var(--rosa-medio);
+      transition: all 0.3s;
+    }
+
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(247, 131, 172, 0.1);
+    }
+    
+    .footer_section {
+      background-color: var(--rosa-profundo);
+      color: #f783ac;
+      padding: 50px 0 20px;
+    }
+    
+    .heading_container {
+      margin-bottom: 30px;
+    }
+    
+    .form-container {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(247, 131, 172, 0.1);
+      border: 1px solid var(--rosa-medio);
+    }
     /* NOVOS ESTILOS DO CATÁLOGO */
 .hero_area.sub_page {
     background-image: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
@@ -288,6 +592,37 @@ h2 {
       -ms-flex-align: start;
           align-items: flex-start;
 }
+/* Efeito de hover nos cards de serviço */
+.box {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* Efeito no logo */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    color: #e83e8c !important;
+}
+
+/* Responsividade para os botões */
+@media (max-width: 768px) {
+    .btn1 {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .navbar-nav .nav-item {
+        margin: 5px 0;
+    }
+}
 .slider_section {
   height: 100vh;
   position: relative;
@@ -328,7 +663,7 @@ h2 {
 }
 
 .btn1 {
-  background: #ff69b4;
+  background: #e83e8c;
   border-color: #ff69b4;
   color: white;
   padding: 10px 25px;
@@ -506,7 +841,7 @@ a:focus {
 
 /*header section*/
 .hero_area {
-  background-image: url("images/salao.png");
+  background-color: #f783ac;
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -1327,6 +1662,66 @@ a:focus {
   transition: all 0.3s;
   border: none;
 }
+/* Estilo para os itens do menu */
+.navbar-nav .nav-item {
+    margin: 0 10px;
+}
+
+.navbar-nav .nav-link {
+    color: #333;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #e83e8c;
+    background-color: rgba(232, 62, 140, 0.1);
+}
+
+.navbar-nav .nav-link:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #e83e8c;
+    transition: width 0.3s;
+}
+
+.navbar-nav .nav-link:hover:after,
+.navbar-nav .nav-link.active:after {
+    width: 50%;
+}
+
+/* Ícones de usuário e carrinho */
+.user_option a {
+    color: #333;
+    margin-left: 15px;
+    transition: all 0.3s;
+}
+
+.user_option a:hover {
+    color: #e83e8c;
+    transform: scale(1.1);
+}
+
+.cart_link svg {
+    width: 22px;
+    height: 22px;
+    fill: #333;
+    transition: all 0.3s;
+}
+
+.cart_link:hover svg {
+    fill: #e83e8c;
+    transform: scale(1.1);
+}
 
 .contact_section .form_container button:hover {
   background-color: #ff69b4;
@@ -1334,11 +1729,10 @@ a:focus {
 
 /* footer section*/
 .footer_section {
-  background-color: #222831;
-  color: #ffffff;
-  padding: 75px 0 40px 0;
-  text-align: center;
-}
+      background-color: var(--rosa-profundo);
+      color: #f783ac;
+      padding: 50px 0 20px;
+    }
 
 .footer_section h4 {
   font-size: 28px;
