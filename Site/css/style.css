@@ -484,14 +484,25 @@ input:focus:invalid {
       border: 1px solid var(--rosa-medio);
     }
     /* NOVOS ESTILOS DO CATÁLOGO */
-.hero_area.sub_page {
-    background-image: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-    background-size: cover;
-    background-position: center;
-    min-height: 300px;
-    position: relative;
+body.catalogo-page .hero_area.sub_page {
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  background-color: transparent !important;
 }
 
+body.catalogo-page .header_section {
+  background-color: var(--rosa-destaque) !important;
+}
+body.catalogo-page .food_section {
+  padding: 30px 0 !important;
+  background-color: var(--branco) !important;
+  margin-top: 0; /* Remove o margin negativo */
+}
+body.catalogo-page {
+  padding-top: 0;
+}
 .hero_area.sub_page::before {
     content: '';
     position: absolute;
@@ -503,9 +514,16 @@ input:focus:invalid {
 }
 
 .header_section {
-    position: relative;
-    z-index: 9;
+  position: relative !important;
+  background-color: #f783ac !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
+
+.food_section {
+  padding: 30px 0 !important;
+  background-color: #fff !important;
+}
+
 
 .food_section.layout_padding {
     background-color: #fff;
@@ -1020,7 +1038,9 @@ a:focus {
   height: 100vh;
   position: relative;
 }
-
+body.catalogo-page {
+  background-color: #ffffff !important;
+}
 
 /*
 .bg-box {
@@ -2004,5 +2024,57 @@ a:focus {
 
 .footer_section .footer-info p a {
   color: inherit;
+}
+/* Override emergencial */
+body.catalogo-page,
+body.sub_page {
+  background: #fff !important;
+}
+
+body.catalogo-page .content-section,
+body.sub_page .content-section {
+  background: #fff !important;
+}
+/* Estilo para o container do preço total */
+.total-price-container {
+  border: 1px solid #e9ecef;
+  background-color: #fff0f6 !important;
+}
+
+.total-price-container h5 {
+  color: #e83e8c;
+  font-weight: 600;
+  margin: 0;
+}
+
+#totalPrice {
+  font-weight: 700;
+  color: #d42d7b;
+}
+
+/* Melhoria visual para campos readonly */
+input[readonly] {
+  background-color: #f8f9fa;
+  border-color: #e9ecef;
+  color: #495057;
+}
+
+/* Estilo para a mensagem de login necessário */
+#loginRequired {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff0f6;
+  border-left: 4px solid #e83e8c;
+  margin-bottom: 20px;
+}
+
+#loginRequired a {
+  color: #e83e8c;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+#loginRequired a:hover {
+  color: #d42d7b;
 }
 /*# sourceMappingURL=style.css.map */

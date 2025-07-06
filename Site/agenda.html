@@ -11,7 +11,7 @@
   <meta name="author" content="Beleza Capilar" />
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-  <title>Beleza Capilar - Agenda</title>
+  <title>Salão de Beleza</title>
 
   <!-- Estilos -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -48,7 +48,7 @@
                 <a class="nav-link" href="catalogo.html">Catálogo</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="agenda.html">Agenda</a>
+                <a class="nav-link" href="agenda.html">Agendar</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="sobre.html">Sobre</a>
@@ -158,54 +158,77 @@
             </div>
             
             <div class="col-lg-8">
-              <div class="form-container">
-                <form id="appointmentForm">
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="clientName">Nome completo</label>
-                      <input type="text" class="form-control" id="clientName" placeholder="Seu nome completo" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="clientPhone">Telefone/WhatsApp</label>
-                      <input type="tel" class="form-control" id="clientPhone" placeholder="(51) 99999-9999" required>
-                    </div>
-                  </div>
-                  
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="clientEmail">E-mail</label>
-                      <input type="email" class="form-control" id="clientEmail" placeholder="seu@email.com" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="appointmentDate">Data preferencial</label>
-                      <input type="date" class="form-control" id="appointmentDate" required>
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="serviceType">Serviço desejado</label>
-                    <select class="form-control nice-select" id="serviceType" required>
-                      <option value="">Selecione o serviço</option>
-                      <option>Corte + Hidratação</option>
-                      <option>Corte</option>
-                      <option>Corte + Penteado Simples</option>
-                      <option>Coloração</option>
-                      <option>Hidratação Profunda</option>
-                      <option>Progressiva sem Formol</option>
-                    </select>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="clientNotes">Observações</label>
-                    <textarea class="form-control" id="clientNotes" rows="3" placeholder="Alguma observação importante?"></textarea>
-                  </div>
-                  
-                  <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-rosa">Solicitar Agendamento</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+  <div class="form-container">
+    <div id="loginRequired" class="alert alert-info" style="display: none;">
+      <p>Para agendar um horário, você precisa estar logado. <a href="#" id="loginLink">Faça login</a> ou <a href="#" id="registerLink">cadastre-se</a>.</p>
+    </div>
+    
+    <form id="appointmentForm" style="display: none;">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="clientName">Nome completo</label>
+          <input type="text" class="form-control" id="clientName" readonly>
+          <small class="text-muted">Dados do seu cadastro</small>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="clientPhone">Telefone/WhatsApp</label>
+          <input type="tel" class="form-control" id="clientPhone" readonly>
+          <small class="text-muted">Dados do seu cadastro</small>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="clientEmail">E-mail</label>
+          <input type="email" class="form-control" id="clientEmail" readonly>
+          <small class="text-muted">Dados do seu cadastro</small>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="appointmentDate">Data preferencial</label>
+          <input type="date" class="form-control" id="appointmentDate" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="serviceType">Serviço desejado</label>
+        <select class="form-control nice-select" id="serviceType" required>
+          <option value="">Selecione o serviço</option>
+          <option value="120">Corte + Hidratação - R$ 120</option>
+          <option value="70">Corte - R$ 70</option>
+          <option value="100">Corte + Penteado Simples - R$ 100</option>
+          <option value="150">Coloração - R$ 150</option>
+          <option value="90">Hidratação Profunda - R$ 90</option>
+          <option value="180">Progressiva sem Formol - R$ 180</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="paymentMethod">Forma de Pagamento</label>
+        <select class="form-control nice-select" id="paymentMethod" required>
+          <option value="">Selecione a forma de pagamento</option>
+          <option>Dinheiro</option>
+          <option>PIX</option>
+          <option>Cartão de Crédito</option>
+          <option>Cartão de Débito</option>
+          <option>Transferência Bancária</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="clientNotes">Observações</label>
+        <textarea class="form-control" id="clientNotes" rows="3" placeholder="Alguma observação importante?"></textarea>
+      </div>
+      
+      <div class="total-price-container bg-light p-3 rounded mb-4">
+        <h5 class="text-center">Total: <span id="totalPrice">R$ 0,00</span></h5>
+      </div>
+      
+      <div class="text-center mt-2">
+        <button type="submit" class="btn btn-rosa">Confirmar Agendamento</button>
+      </div>
+    </form>
+  </div>
+</div>
           </div>
         </div>
       </div>
@@ -324,7 +347,24 @@
   <script src="js/bootstrap.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
   <script src="js/login.js"></script>
-
+<script>
+  // Garante que o conteúdo seja exibido após o carregamento
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mostra todos os elementos do agendamento
+    document.querySelectorAll('.agenda-section *').forEach(el => {
+      el.style.display = '';
+      el.style.visibility = '';
+      el.style.opacity = '';
+    });
+    
+    // Corrige possíveis problemas com o modal
+    if (window.location.hash === '#login') {
+      setTimeout(() => {
+        document.getElementById('loginModal').style.display = 'flex';
+      }, 500);
+    }
+  });
+</script>
  
 </body>
 </html>
