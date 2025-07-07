@@ -226,3 +226,44 @@ function mostrarFormulario(tipo) {
     $('.login-tab').removeClass('active');
     $(`.login-tab:contains(${tipo === 'login' ? 'Login' : 'Cadastro'})`).addClass('active');
 }
+  // Configura os eventos para os links de login/cadastro
+  document.addEventListener('DOMContentLoaded', function() {
+    // Link de Login
+    document.getElementById('loginLink')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Abre o modal
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.style.display = 'block';
+        // Mostra o formulário de login
+        mostrarFormulario('login');
+      }
+    });
+
+    // Link de Cadastro
+    document.getElementById('registerLink')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Abre o modal
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.style.display = 'block';
+        // Mostra o formulário de cadastro
+        mostrarFormulario('cadastro');
+      }
+    });
+  });
+// Função chamada após login bem-sucedido
+function onLoginSuccess(userData) {
+    // Atualiza a interface do usuário
+    const nomeEl = document.getElementById('userName');
+    if (nomeEl) {
+        nomeEl.textContent = userData.name.split(' ')[0];
+    }
+    
+    // Se estiver na página de agendamento, atualiza o formulário
+    if (window.location.pathname.includes('agenda.html')) {
+        checkLoginForAppointment();
+    }
+}
+
+// Restante do seu código existente no custom.js...
