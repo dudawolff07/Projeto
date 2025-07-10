@@ -13,7 +13,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="">
 
-  <title> Salão de Beleza </title>
+  <title> Sobre Mim | Salão de Beleza </title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -29,120 +29,53 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-
+  
 </head>
 
-<body>
+<body class="sub_page">
 
-  <div class="hero_area">
-    
-    <!-- header section strats -->
-    <header class="header_section">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
-            <span>
-              Salão de Beleza
-            </span>
-          </a>
+  <header class="header_section">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg custom_nav-container ">
+        <a class="navbar-brand" href="index.html">
+          <span>
+            Salão de Beleza
+          </span>
+        </a>
 
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class=""> </span>
-          </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class=""> </span>
+        </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav  mx-auto ">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">Início</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="catalogo.html">Catálogo</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="agenda.html">Agendar</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="sobre.html">Sobre</a>
-              </li>
-             
-            </ul>
-            <div class="user_option">
-              <a href="#" id="abrirLoginModal" class="user_link">
-              <i class="fa fa-user" aria-hidden="true"></i>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav  mx-auto ">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalogo.html">Catálogo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="agenda.html">Agendar</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="sobre.html">Sobre</a>
+            </li>
+           
+          </ul>
+         <div class="user_option">
+              <a href="#" class="user_link" data-toggle="modal" data-target="#perfilModal">
+                <i class="fa fa-user-circle" aria-hidden="true"></i> Olá, Juliana
               </a>
-
-              
-              
             </div>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <!-- end header section -->
- <!-- slider section -->
-<section class="slider_section">
-<div id="customCarousel1" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
-    <div class="carousel-inner">
-
-      <!-- Slide 1 -->
-      <div class="carousel-item active">
-        <div class="full-bg" style="background-image: url('images/fundoprincipal.png');">
-          <div class="container h-100 d-flex align-items-center">
-            <div class="detail-box text-white">
-              <h1>Transforme seu visual</h1>
-              <p>Especialistas em cortes, coloração e tratamentos capilares para realçar sua beleza natural.</p>
-              <div class="btn-box">
-                <a href="catalogo.html" class="btn1">Ver Catálogo</a>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-
-      <!-- Slide 2 -->
-      <div class="carousel-item">
-        <div class="full-bg" style="background-image: url('images/alisamento.png');">
-          <div class="container h-100 d-flex align-items-center">
-            <div class="detail-box text-white">
-              <h1>Estilo que inspira</h1>
-              <p>Desde o liso impecável aos cachos definidos.</p>
-              <div class="btn-box">
-                <a href="agenda.html" class="btn1">Agende Agora</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 3 -->
-      <div class="carousel-item">
-        <div class="full-bg" style="background-image: url('images/cabelo.png');">
-          <div class="container h-100 d-flex align-items-center">
-            <div class="detail-box text-white">
-              <h1>Beleza com leveza</h1>
-              <p>Ambiente acolhedor, atendimento personalizado e os melhores produtos para seu cabelo.</p>
-              <div class="btn-box">
-                <a href="sobre.html" class="btn1">Conheça o Salão</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      </nav>
     </div>
+  </header>
 
-    <!-- Indicadores -->
-    <ol class="carousel-indicators">
-      <li data-bs-target="#customCarousel1" data-bs-slide-to="0" class="active"></li>
-      <li data-bs-target="#customCarousel1" data-bs-slide-to="1"></li>
-      <li data-bs-target="#customCarousel1" data-bs-slide-to="2"></li>
-    </ol>
-  </div>
-</section>
-
-  <!-- end offer section -->
+  <!-- Conteúdo Principal (mais próximo do topo) -->
+  <section class="about-section">
     <div class="container">
       <div class="professional-card">
         <div class="row align-items-center">
@@ -202,10 +135,10 @@
         </div>
       </div>
     </div>
+  </section>
 
-
-   <!-- Rodapé -->
-<footer class="footer_section">
+  <!-- Rodapé Original -->
+  <footer class="footer_section">
     <div class="container">
       <div class="row">
         <div class="col-md-4 footer-col">
@@ -277,7 +210,7 @@
       </div>
     </div>
   </footer>
-    <script>
+ <script>
   // Carrega o modal de login via fetch
   fetch('login-modal.html')
     .then(res => res.text())
@@ -285,54 +218,21 @@
       document.body.insertAdjacentHTML('beforeend', html);
     });
 </script>
-
-  <!-- footer section -->
-
-  <!-- jQery -->
+  <!-- Scripts originais -->
   <script src="js/jquery-3.4.1.min.js"></script>
-  <!-- popper js -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
   </script>
-  <!-- bootstrap js -->
   <script src="js/bootstrap.js"></script>
-  <!-- owl slider -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
   </script>
-  <!-- isotope js -->
   <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
-  <!-- nice select -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-  <!-- custom js -->
-  <script src="js/custom.js"></script>
-  <!-- loggin js-->
+  <script src="js/custom.js"></script> 
   <script src="js/login.js"></script>
 
 
-<script>
- //inicialindo o catalogo
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var carousel = document.getElementById('customCarousel1');
-    if (carousel) {
-      var myCarousel = new bootstrap.Carousel(carousel, {
-        interval: 4000,
-        wrap: true,
-        ride: 'carousel'
-      });
-      
-      carousel.addEventListener('mouseenter', function() {
-        myCarousel.pause();
-      });
-      carousel.addEventListener('mouseleave', function() {
-        myCarousel.cycle();
-      });
-      
-      setTimeout(() => {
-        myCarousel.to(0);
-      }, 100);
-    }
-  });
-</script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  </script>
 
 </body>
 
