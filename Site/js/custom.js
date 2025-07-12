@@ -8,6 +8,37 @@ document.addEventListener('DOMContentLoaded', function() {
         '90': 90,
         '180': 180
     };
+    const modal = document.getElementById('modalProduto');
+
+  window.abrirModalCadastro = function () {
+    modal.style.display = 'flex';
+    document.getElementById('modalTitulo').innerText = 'Novo Produto';
+  };
+
+  window.fecharModal = function () {
+    modal.style.display = 'none';
+  };
+
+  window.editarProduto = function (btn) {
+    abrirModalCadastro();
+    document.getElementById('modalTitulo').innerText = 'Editar Produto';
+    // popular campos do formulário, se quiser
+  };
+
+  window.apagarProduto = function (btn) {
+    if (confirm('Tem certeza que deseja apagar este produto?')) {
+      btn.closest('.col-lg-4').remove();
+    }
+  };
+
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      fecharModal();
+    }
+
+  };
+
+
 
     // Atualiza o ano no footer
     if(document.getElementById("displayYear")) {

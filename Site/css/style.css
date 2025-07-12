@@ -643,11 +643,12 @@ body.catalogo-page {
     margin: 0 5px;
     font-weight: 600;
     transition: all 0.3s ease;
+    background-color: #f8f9fa;
 }
 
 .filters_menu li.active,
 .filters_menu li:hover {
-    background-color: #ff6b6b;
+    background-color:#f783ac;
     color: #fff;
 }
 
@@ -1036,7 +1037,7 @@ a:focus {
 }
 .detail-box h1 {
  font-size: 3.5rem;
-  font-family: 'Poppins', san-serif;
+  font-family: 'Playfair Display', san-serif;
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
@@ -1506,12 +1507,11 @@ body.catalogo-page {
 .food_section .box {
   position: relative;
   margin-top: 25px;
-  background-color: #ffffff;
+  background-color:#f9f9f9;;
   border-radius: 10px;
   color: #ffffff;
   border-radius: 15px;
   overflow: hidden;
-background: linear-gradient(to bottom, #fff0f6 0%, #ffdeeb 100%);
 }
 
 .food_section .box .img-box {
@@ -1537,7 +1537,7 @@ background: linear-gradient(to bottom, #fff0f6 0%, #ffdeeb 100%);
 
 
 .food_section .box .detail-box {
-  background: linear-gradient(to bottom, #fce4ec 0%, #fff0f6 100%);
+  background: transparent;
   color: #e64980;
   padding: 25px;
 }
@@ -2195,4 +2195,127 @@ input[readonly] {
   padding: 12px 30px;
   font-weight: 600;
 }
+.btn-adm-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #f783ac, #e64980);
+  color: white;
+  font-size: 32px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(232, 62, 140, 0.3);
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  border: none;
+}
 
+.btn-adm-float:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #e64980, #f783ac);
+}
+
+.adm-actions {
+  display: flex;
+  gap: 10px;
+}
+.btn-editar, .btn-apagar {
+  background-color: #f783ac;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.btn-editar:hover {
+  color: #f783ac;
+}
+.btn-apagar:hover {
+  color: #e83e8c;
+}
+
+
+/* Modal de administração - estilo rosa elegante */
+.adm-modal-content {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 90%;
+  margin: auto;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  animation: modalFadeIn 0.3s ease;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e64980;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.form-produto .form-group {
+  margin-bottom: 20px;
+}
+
+.form-produto input,
+.form-produto textarea {
+  width: 100%;
+  padding: 12px 18px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  transition: all 0.2s ease;
+  resize: none;
+}
+
+.form-produto input:focus,
+.form-produto textarea:focus {
+  outline: none;
+  border-color: #f783ac;
+  box-shadow: 0 0 0 3px rgba(247, 131, 172, 0.1);
+}
+
+.btn-salvar {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+  color: #e64980;
+}
+
+/* Animação suave */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
