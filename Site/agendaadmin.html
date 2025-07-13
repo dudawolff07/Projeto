@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Agenda</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/bootstrap.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+
+</head>
+
+<body class="admin-agenda-page">
+  <!-- Header -->
+  <header class="header_section menu-visivel">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg custom_nav-container">
+        <a class="navbar-brand" href="index.html">
+          <span>Salão de Beleza</span>
+        </a>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogoadmin.html">Catálogo</a></li>
+            <li class="nav-item active">
+                <a class="nav-link" href="agendaadmin.html">Agenda (Admin)</a></li>
+                 <li class="nav-item">
+                <a class="nav-link" href="sobre.html">Sobre</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container py-5">
+    <div class="text-center">
+      <h2 class="section-title">Painel de Agendamentos</h2>
+    </div>
+
+    <!-- Filtros -->
+    <div class="row filtro-admin mb-4">
+      <div class="col-md-6 col-lg-4">
+        <input type="date" id="filtroData" class="form-control" placeholder="Filtrar por data">
+      </div>
+      
+    </div>
+
+    <!-- Tabela de agendamentos -->
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Serviço</th>
+            <th>Pagamento</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="agendamentosTabela">
+          <!-- Preenchido dinamicamente -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+<footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Contato
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Avenida Borges de Medeiros, 123 - Rolante/RS
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Telefone +51 1234567890
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  salaodebeleza@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              Salão de Beleza
+            </a>
+            <p>
+              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+            </p>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Horário de Funcionamento
+          </h4>
+          <p>Terça a Sexta: 9h às 19h</p>
+          <p>Sábado: 9h às 17h</p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> Todos os direitos reservados
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    const agendamentos = [
+      { cliente: 'Maria Souza', data: '2025-07-20', hora: '10:00', servico: 'Coloração', pagamento: 'PIX', status: 'Confirmado' },
+      { cliente: 'Joana Lima', data: '2025-07-21', hora: '14:30', servico: 'Corte + Hidratação', pagamento: 'Crédito', status: 'Pendente' },
+    ];
+
+    function renderTabela() {
+      const tbody = document.getElementById('agendamentosTabela');
+      tbody.innerHTML = '';
+
+      agendamentos.forEach((a, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${a.cliente}</td>
+            <td>${a.data}</td>
+            <td>${a.hora}</td>
+            <td>${a.servico}</td>
+            <td>${a.pagamento}</td>
+            <td><span class="badge ${a.status === 'Confirmado' ? 'bg-success' : 'bg-warning'}">${a.status}</span></td>
+            <td class="adm-actions">
+              <button class="btn-editar" onclick="editar(${i})">Editar</button>
+              <button class="btn-apagar" onclick="cancelar(${i})">Cancelar</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function editar(index) {
+      alert(`Editar agendamento de ${agendamentos[index].cliente}`);
+    }
+
+    function cancelar(index) {
+      if (confirm(`Deseja cancelar o agendamento de ${agendamentos[index].cliente}?`)) {
+        agendamentos[index].status = 'Cancelado';
+        renderTabela();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', renderTabela);
+  </script>
+</body>
+
+</html>
