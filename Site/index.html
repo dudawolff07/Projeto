@@ -277,14 +277,7 @@
       </div>
     </div>
   </footer>
-    <script>
-  // Carrega o modal de login via fetch
-  fetch('login-modal.html')
-    .then(res => res.text())
-    .then(html => {
-      document.body.insertAdjacentHTML('beforeend', html);
-    });
-</script>
+  
 
   <!-- footer section -->
 
@@ -306,33 +299,6 @@
   <script src="js/custom.js"></script>
   <!-- loggin js-->
   <script src="js/login.js"></script>
-
-
-<script>
- //inicialindo o catalogo
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var carousel = document.getElementById('customCarousel1');
-    if (carousel) {
-      var myCarousel = new bootstrap.Carousel(carousel, {
-        interval: 4000,
-        wrap: true,
-        ride: 'carousel'
-      });
-      
-      carousel.addEventListener('mouseenter', function() {
-        myCarousel.pause();
-      });
-      carousel.addEventListener('mouseleave', function() {
-        myCarousel.cycle();
-      });
-      
-      setTimeout(() => {
-        myCarousel.to(0);
-      }, 100);
-    }
-  });
-</script>
 
 </body>
 

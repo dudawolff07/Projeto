@@ -1190,9 +1190,19 @@ body.catalogo-page {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+   margin-left: 15px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+.user_link {
+  padding: 5px 10px; /* Ajuste do padding */
+  margin-left: 5px; /* Espaçamento menor */
+}
+@media (max-width: 768px) {
+  .user_option {
+    margin-left: 10px;
+  }
 }
 
 .user_option a {
@@ -2357,3 +2367,257 @@ input[readonly] {
     .btn-apagar { background-color: #e64980; color: white; }
     .btn-editar:hover { background-color: #f8d7e6; color: #e64980; }
     .btn-apagar:hover { background-color: #d6336c; }
+
+    /* Estilos específicos para a área de administração */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #fafafa;
+  padding: 20px;
+}
+
+header.header_section {
+  background-color: #e64980;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+h1, h2 {
+  color: #e64980;
+}
+
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.btn {
+  background-color: #e64980;
+  border: none;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #d42d7b;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #e64980;
+  margin: 20px 0;
+}
+
+.diferencial input {
+  margin-bottom: 10px;
+}
+
+.alert {
+  background-color: #e64980;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+/* Remove margens padrão do body e html */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Previne barras de rolagem horizontais */
+}
+
+/* Garante que containers ocupem toda a largura */
+.container, .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 100%;
+}
+
+/* Remove espaçamento interno do container principal */
+.header_section .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* Estilo para o formulário de recuperação */
+#formRecovery {
+  text-align: center;
+}
+
+#formRecovery h4 {
+  color: #e64980;
+  margin-bottom: 15px;
+}
+
+#formRecovery p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.forgot-password {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.forgot-password a {
+  color: #666;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  color: #e64980;
+  text-decoration: underline;
+}
+/* Estilos para o modal de login */
+.login-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto; /* Permite rolagem se o conteúdo for muito grande */
+}
+
+.login-content {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  padding: 25px;
+  position: relative;
+  max-height: 90vh; /* Limita a altura */
+  overflow-y: auto; /* Adiciona rolagem se necessário */
+}
+
+/* Ajustes para os formulários dentro do modal */
+.login-form {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form.active {
+  display: flex;
+}
+
+/* Tabs de navegação */
+.login-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.login-tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  font-weight: 500;
+}
+
+.login-tab.active {
+  border-bottom-color: #e64980;
+  color: #e64980;
+}
+
+/* Campos do formulário */
+.login-form input {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.login-form button {
+  background-color: #e64980;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Formulário de recuperação específico */
+#formRecovery {
+  text-align: center;
+}
+
+#formRecovery h4 {
+  color: #e64980;
+  margin-bottom: 10px;
+}
+
+#formRecovery p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* Link "Esqueceu a senha" */
+.forgot-password {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.forgot-password a {
+  color: #666;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  color: #e64980;
+  text-decoration: underline;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 480px) {
+  .login-content {
+    width: 95%;
+    padding: 20px 15px;
+  }
+  
+  .login-tab {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  
+  .login-form input, 
+  .login-form button {
+    padding: 10px 12px;
+  }
+  
+  /* Ajuste específico para o formulário de recuperação */
+  #formRecovery {
+    padding-top: 10px;
+  }
+}
+/* Adicione ao seu CSS */
+.login-modal {
+  align-items: flex-start; /* Alterado de center para flex-start */
+  padding: 20px 0; /* Espaço no topo e base */
+}
+
+.login-content {
+  margin: auto; /* Centraliza verticalmente */
+  transform: translateY(20px); /* Ajuste fino de posição */
+  transition: transform 0.3s ease; /* Suaviza a aparição */
+}
+
+/* Quando o modal é aberto */
+.login-modal.active {
+  align-items: center;
+}

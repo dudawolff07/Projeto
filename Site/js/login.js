@@ -1,7 +1,9 @@
-// Variável para controlar se o modal foi carregado
+// login.js - Versão corrigida e otimizada
+
 let modalCarregado = false;
 
-// Carrega o modal de login dinamicamente
+// ========== FUNÇÕES PRINCIPAIS ========== //
+
 function carregarLoginModal() {
   if (modalCarregado) return;
   
@@ -17,139 +19,203 @@ function carregarLoginModal() {
     })
     .catch(err => {
       console.error('Erro ao carregar modal:', err);
+      // Fallback: Mostra mensagem amigável
+      alert('Sistema temporariamente indisponível. Tente novamente mais tarde.');
     });
 }
 
-// Configura todos os eventos do modal
 function configurarEventosModal() {
   const modal = document.getElementById('loginModal');
   if (!modal) return;
 
-  // Evento para fechar modal ao clicar no fundo
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) {
+  // Fechar modal ao clicar no fundo ou no 'X'
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target.classList.contains('close-modal')) {
       fecharLoginModal();
     }
   });
 
-  // Configura links de login/cadastro
-  document.getElementById('loginLink')?.addEventListener('click', abrirLogin);
-  document.getElementById('registerLink')?.addEventListener('click', abrirCadastro);
-
-  // Configura formulário de cadastro
-  const formCadastro = document.getElementById('formCadastro');
-  if (formCadastro) {
-    formCadastro.addEventListener('submit', function(e) {
-      e.preventDefault();
-      processarCadastro();
+  // Configura navegação entre abas
+  document.querySelectorAll('.login-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const tipo = tab.textContent.toLowerCase();
+      mostrarFormulario(tipo);
     });
-  }
+  });
+
+  // Configura formulários
+  document.getElementById('formLogin')?.addEventListener('submit', processarLogin);
+  document.getElementById('formCadastro')?.addEventListener('submit', processarCadastro);
+  
+  // Links especiais
+  document.getElementById('forgotPasswordLink')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    mostrarRecuperacaoSenha();
+  });
 }
 
-// Funções para abrir o modal nos modos específicos
+// ========== CONTROLE DO MODAL ========== //
+
 function abrirLogin(e) {
   if (e) e.preventDefault();
   const modal = document.getElementById('loginModal');
-  if (modal) {
-    modal.style.display = 'flex';
-    mostrarFormulario('login');
-  } else {
+  
+  if (!modal) {
     carregarLoginModal();
     setTimeout(() => abrirLogin(), 300);
+    return;
   }
+  
+  modal.style.display = 'flex';
+  mostrarFormulario('login');
 }
 
-function abrirCadastro(e) {
-  if (e) e.preventDefault();
-  const modal = document.getElementById('loginModal');
-  if (modal) {
-    modal.style.display = 'flex';
-    mostrarFormulario('cadastro');
-  } else {
-    carregarLoginModal();
-    setTimeout(() => abrirCadastro(), 300);
-  }
-}
-
-// Funções globais para controle do modal
-window.fecharLoginModal = function() {
+function fecharLoginModal() {
   const modal = document.getElementById('loginModal');
   if (modal) modal.style.display = 'none';
 }
 
-window.mostrarFormulario = function(tipo) {
-  const formLogin = document.getElementById('formLogin');
-  const formCadastro = document.getElementById('formCadastro');
-  const tabs = document.querySelectorAll('.login-tab');
+function mostrarFormulario(tipo) {
+  // Esconde todos os formulários
+  document.querySelectorAll('.login-form').forEach(form => {
+    form.classList.remove('active');
+  });
 
+  // Ativa formulário selecionado
   if (tipo === 'login') {
-    formLogin?.classList.add('active');
-    formCadastro?.classList.remove('active');
-    tabs[0]?.classList.add('active');
-    tabs[1]?.classList.remove('active');
-  } else {
-    formCadastro?.classList.add('active');
-    formLogin?.classList.remove('active');
-    tabs[1]?.classList.add('active');
-    tabs[0]?.classList.remove('active');
+    document.getElementById('formLogin')?.classList.add('active');
+    document.querySelector('.login-tab:first-child')?.classList.add('active');
+    document.querySelector('.login-tab:last-child')?.classList.remove('active');
+  } else if (tipo === 'cadastro') {
+    document.getElementById('formCadastro')?.classList.add('active');
+    document.querySelector('.login-tab:last-child')?.classList.add('active');
+    document.querySelector('.login-tab:first-child')?.classList.remove('active');
   }
 }
 
-// Processa o formulário de cadastro
-function processarCadastro() {
-  const nome = document.getElementById('cadastroNome')?.value;
-  const email = document.getElementById('cadastroEmail')?.value;
-  const telefone = document.getElementById('cadastroTelefone')?.value;
-  const senha = document.getElementById('cadastroSenha')?.value;
-  const confirmar = document.getElementById('confirmarSenha')?.value;
+// ========== FORMULÁRIO DE RECUPERAÇÃO ========== //
 
+function mostrarRecuperacaoSenha() {
+  const container = document.querySelector('.login-content');
+  
+  // Remove formulário existente se houver
+  const oldForm = document.getElementById('formRecovery');
+  if (oldForm) oldForm.remove();
+
+  // Cria novo formulário
+  const recoveryHTML = `
+    <form id="formRecovery" class="login-form active">
+      <h4>Recuperar Senha</h4>
+      <p>Digite seu e-mail para receber o link de recuperação</p>
+      <input type="email" id="recoveryEmail" placeholder="Seu e-mail" required>
+      <button type="submit" class="btn-rosa">Enviar Link</button>
+      <div class="text-center mt-3">
+        <a href="#" id="backToLogin">Voltar ao Login</a>
+      </div>
+    </form>
+  `;
+  
+  container.insertAdjacentHTML('beforeend', recoveryHTML);
+  
+  // Configura eventos
+  document.getElementById('formRecovery').addEventListener('submit', processarRecuperacaoSenha);
+  document.getElementById('backToLogin').addEventListener('click', (e) => {
+    e.preventDefault();
+    mostrarFormulario('login');
+  });
+}
+
+// ========== PROCESSAMENTO DE FORMULÁRIOS ========== //
+
+function processarLogin(e) {
+  e.preventDefault();
+  
+  const email = document.querySelector('#formLogin input[type="text"]').value;
+  const senha = document.querySelector('#formLogin input[type="password"]').value;
+  
+  // Validação básica
+  if (!email || !senha) {
+    alert('Preencha todos os campos!');
+    return;
+  }
+
+  // Verifica no localStorage (simulação)
+  const userData = JSON.parse(localStorage.getItem('userData') || 'null');
+  
+  if (userData && userData.email === email) {
+    localStorage.setItem('userLoggedIn', 'true');
+    alert(`Bem-vindo(a) de volta, ${userData.nome.split(' ')[0]}!`);
+    fecharLoginModal();
+    location.reload();
+  } else {
+    alert('Credenciais inválidas!');
+  }
+}
+
+function processarCadastro(e) {
+  e.preventDefault();
+  
+  const nome = document.getElementById('cadastroNome').value;
+  const email = document.getElementById('cadastroEmail').value;
+  const senha = document.getElementById('cadastroSenha').value;
+  const confirmarSenha = document.getElementById('confirmarSenha').value;
+
+  // Validações
   if (!nome || !email || !senha) {
     alert('Preencha todos os campos obrigatórios!');
     return;
   }
 
-  if (senha !== confirmar) {
+  if (senha !== confirmarSenha) {
     alert('As senhas não coincidem!');
     return;
   }
 
-  const userData = { 
-    nome: nome,
-    name: nome,
-    email: email,
-    phone: telefone 
-  };
-  
+  // Salva dados (simulação)
+  const userData = { nome, email, senha };
   localStorage.setItem('userData', JSON.stringify(userData));
-  localStorage.setItem('userLoggedIn', 'true');
-
-  if (typeof onLoginSuccess === 'function') {
-    onLoginSuccess(userData);
-  } else {
-    fecharLoginModal();
-    location.reload();
-  }
+  
+  alert('Cadastro realizado com sucesso! Faça login para continuar.');
+  mostrarFormulario('login');
 }
 
-// Inicialização
+function processarRecuperacaoSenha(e) {
+  e.preventDefault();
+  const email = document.getElementById('recoveryEmail').value;
+  
+  if (!email) {
+    alert('Digite seu e-mail cadastrado');
+    return;
+  }
+
+  // Simula envio
+  const btn = document.querySelector('#formRecovery button');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  
+  setTimeout(() => {
+    btn.textContent = 'Link Enviado!';
+    setTimeout(() => {
+      mostrarFormulario('login');
+    }, 1000);
+  }, 1500);
+}
+
+// ========== INICIALIZAÇÃO ========== //
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Carrega o modal antecipadamente
   carregarLoginModal();
   
-  // Verifica se já está logado
-  const saved = localStorage.getItem('userData');
-  if (saved) {
-    const user = JSON.parse(saved);
-    const nomeEl = document.getElementById('userName');
-    if (nomeEl) {
-      nomeEl.textContent = user.nome.split(' ')[0];
+  // Configura clique no ícone de usuário
+  document.getElementById('abrirLoginModal')?.addEventListener('click', abrirLogin);
+  
+  // Verifica se usuário está logado
+  if (localStorage.getItem('userLoggedIn') === 'true') {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData?.nome) {
+      const nomeEl = document.getElementById('userName');
+      if (nomeEl) nomeEl.textContent = userData.nome.split(' ')[0];
     }
-  }
-});
-
-// Evento para ícone de usuário no cabeçalho
-document.addEventListener('click', function(e) {
-  if (e.target.closest('.user_link')) {
-    e.preventDefault();
-    abrirLogin();
   }
 });

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Sobre</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #fafafa;
+      padding: 20px;
+    }
+
+    header.header_section {
+      background-color: #e64980;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 8px;
+    }
+
+    .navbar-admin a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 600;
+    }
+
+    .navbar-admin a:hover {
+      text-decoration: underline;
+    }
+
+    h1, h2 {
+      color: #e64980;
+    }
+
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+    }
+
+    .btn {
+      background-color: #e64980;
+      border: none;
+      color: white;
+    }
+
+    .btn:hover {
+      background-color: #d42d7b;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #e64980;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero_area">
+    <!-- header section starts -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>Salão de Beleza</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mx-auto ">
+              <li class="nav-item active">
+                <a class="nav-link" href="indexadmin.html">Início</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="catalogoadmin.html">Catálogo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="agendaadmin.html">Agendar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="sobreadmin.html">Sobre</a>
+              </li>
+            </ul>
+            <div class="user_option">
+              <a href="#" class="user_link" data-toggle="modal" data-target="#perfilModal">
+                <i class="fa fa-user-circle" aria-hidden="true"></i> Olá, Juliana
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+  </header>
+
+  <main class="container mt-5">
+    <h2>Informações da Profissional</h2>
+    <form>
+      <div class="form-group">
+        <label>Nome:</label>
+        <input type="text" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Cargo/Título:</label>
+        <input type="text" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Descrição:</label>
+        <textarea class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Imagem:</label>
+        <input type="file" class="form-control">
+      </div>
+    </form>
+
+    <h2>Formação Profissional</h2>
+    <form id="form-formacao">
+      <div id="formacoes-container">
+        <input type="text" placeholder="Informe a formação" class="form-control mb-2">
+      </div>
+      <button type="button" class="btn btn-secondary" onclick="addFormacao()">Adicionar Formação</button>
+    </form>
+
+    <h2>Especialidades</h2>
+    <form id="form-especialidades">
+      <div id="especialidades-container">
+        <input type="text" placeholder="Especialidade" class="form-control mb-2">
+      </div>
+      <button type="button" class="btn btn-secondary" onclick="addEspecialidade()">Adicionar Especialidade</button>
+    </form>
+
+    <button type="button" class="btn btn-primary mt-3" onclick="salvarSobre()">Salvar Tudo</button>
+  </main>
+
+  <script>
+    function addFormacao() {
+      const container = document.getElementById('formacoes-container');
+      container.insertAdjacentHTML('beforeend', '<input type="text" placeholder="Informe a formação" class="form-control mb-2">');
+    }
+
+    function addEspecialidade() {
+      const container = document.getElementById('especialidades-container');
+      container.insertAdjacentHTML('beforeend', '<input type="text" placeholder="Especialidade" class="form-control mb-2">');
+    }
+
+    function salvarSobre() {
+      alert('Informações da página Sobre salvas!');
+    }
+  </script>
+</body>
+</html>
