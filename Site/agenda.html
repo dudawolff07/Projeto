@@ -299,7 +299,6 @@ Priorizamos sua autoestima, com muita delicadeza e cuidado           </p>
 
  
 <script>
-  // Garante que o conteúdo seja exibido após o carregamento
   document.addEventListener('DOMContentLoaded', function() {
     // Mostra todos os elementos do agendamento
     document.querySelectorAll('.agenda-section *').forEach(el => {
@@ -308,7 +307,6 @@ Priorizamos sua autoestima, com muita delicadeza e cuidado           </p>
       el.style.opacity = '';
     });
     
-    // Corrige possíveis problemas com o modal
     if (window.location.hash === '#login') {
       setTimeout(() => {
         document.getElementById('loginModal').style.display = 'flex';
