@@ -6,11 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin - Agenda</title>
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="css/bootstrap.css" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+      <link href="css/font-awesome.min.css" rel="stylesheet" />
 
 
 </head>
@@ -20,7 +21,7 @@
   <header class="header_section menu-visivel">
     <div class="container">
       <nav class="navbar navbar-expand-lg custom_nav-container">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="agendaadmin.html">
           <span>Salão de Beleza</span>
         </a>
         <div class="collapse navbar-collapse">
@@ -40,8 +41,8 @@
 
   <main class="container py-5">
     <div class="text-center">
-      <h2 class="section-title">Painel de Agendamentos</h2>
-    </div>
+<h2 class="heading_container heading_center">
+Painel de Agendamentos</h2>     </div>
 
     <!-- Filtros -->
     <div class="row filtro-admin mb-4">
@@ -108,25 +109,24 @@
               Salão de Beleza
             </a>
             <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-            </p>
-            <div class="footer_social">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-pinterest" aria-hidden="true"></i>
-              </a>
-            </div>
+Priorizamos sua autoestima, com muita delicadeza e cuidado            </p>
+           <div class="footer_social">
+  <a href="https://facebook.com/seu-salao" target="_blank">
+    <i class="fa fa-facebook" aria-hidden="true"></i>
+  </a>
+  <a href="https://twitter.com/seu-salao" target="_blank">
+    <i class="fa fa-twitter" aria-hidden="true"></i>
+  </a>
+  <a href="https://linkedin.com/company/seu-salao" target="_blank">
+    <i class="fa fa-linkedin" aria-hidden="true"></i>
+  </a>
+  <a href="https://instagram.com/seu-salao" target="_blank">
+    <i class="fa fa-instagram" aria-hidden="true"></i>
+  </a>
+  <a href="https://pinterest.com/seu-salao" target="_blank">
+    <i class="fa fa-pinterest" aria-hidden="true"></i>
+  </a>
+</div>
           </div>
         </div>
         <div class="col-md-4 footer-col">
@@ -166,7 +166,6 @@
             <td>${a.pagamento}</td>
             <td><span class="badge ${a.status === 'Confirmado' ? 'bg-success' : 'bg-warning'}">${a.status}</span></td>
             <td class="adm-actions">
-              <button class="btn-editar" onclick="editar(${i})">Editar</button>
               <button class="btn-apagar" onclick="cancelar(${i})">Cancelar</button>
             </td>
           </tr>
@@ -187,6 +186,14 @@
 
     document.addEventListener('DOMContentLoaded', renderTabela);
   </script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="js/login.js"></script>
 </body>
 
 </html>

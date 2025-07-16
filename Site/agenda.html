@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
   <link href="css/style.css" rel="stylesheet" />
   <link href="css/responsive.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+
 
 </head>
 
@@ -29,7 +31,7 @@
         <div class="container">
 
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="agenda.html">
             <span>
               Salão de Beleza
             </span>
@@ -69,11 +71,12 @@
     </header>
 
   <!-- Conteúdo principal -->
-  <section class="agenda-section">
+<section class="food_section layout_padding">
     <div class="container">
       <div class="text-center mb-5">
-        <h2 class="section-title">Agende seu Horário</h2>
-        <p class="lead">Preencha o formulário abaixo para reservar seu horário</p>
+<h2 class="heading_container heading_center">
+  Agende seu Horário
+</h2>       
       </div>
       
       <div class="row justify-content-center">
@@ -95,11 +98,7 @@
                   <p><i class="fas fa-map-marker-alt contact-icon"></i> Rolante/RS</p>
                 </div>
                 
-                <div class="social-links">
-                  <a href="#"><i class="fab fa-instagram"></i></a>
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </div>
+               
               </div>
             </div>
             
@@ -136,18 +135,39 @@
           <input type="date" class="form-control" id="appointmentDate" required>
         </div>
       </div>
-      <div class="form-group col-md-6">
-  <label for="appointmentTime">Horário preferencial</label>
-  <input
-    type="time"
-    class="form-control"
-    id="appointmentTime"
-    name="appointmentTime"
-    min="09:00"
-    max="19:00"
-    step="1800"
-    required
-  >
+  <div class="form-group col-md-6">
+  <label>Horário preferencial</label>
+  <div class="time-picker">
+    <!-- Manhã -->
+    <div class="time-period">
+      <h6>Manhã</h6>
+      <div class="time-options">
+        <label class="time-option">
+          <input type="radio" name="appointmentTime" value="09:00" required>
+          <span>09:00</span>
+        </label>
+        <label class="time-option">
+          <input type="radio" name="appointmentTime" value="09:30">
+          <span>09:30</span>
+        </label>
+      </div>
+    </div>
+    
+    <!-- Tarde -->
+    <div class="time-period">
+      <h6>Tarde</h6>
+      <div class="time-options">
+        <label class="time-option">
+          <input type="radio" name="appointmentTime" value="13:00">
+          <span>13:00</span>
+        </label>
+        <label class="time-option">
+          <input type="radio" name="appointmentTime" value="13:30">
+          <span>13:30</span>
+        </label>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -200,29 +220,7 @@
     </div>
   </section>
 
-  <!-- Modal de senha (aparece ao enviar o formulário) -->
-  <div class="password-modal" id="passwordModal">
-    <div class="modal-content">
-      <h3 class="mb-4">Confirmação de Agendamento</h3>
-      <p>Para confirmar seu agendamento, digite a senha:</p>
-      
-      <form id="passwordForm">
-        <div class="form-group">
-          <input type="password" class="form-control" id="clientPassword" placeholder="Digite sua senha" required>
-          <small class="form-text text-muted">Caso não tenha senha, entre em contato conosco</small>
-        </div>
-        
-        <div class="alert alert-danger mt-3" id="passwordError" style="display: none;">
-          Senha incorreta. Por favor, tente novamente.
-        </div>
-        
-        <div class="d-flex justify-content-between mt-4">
-          <button type="button" class="btn btn-outline-secondary" id="cancelBtn">Cancelar</button>
-          <button type="submit" class="btn btn-rosa">Confirmar</button>
-        </div>
-      </form>
-    </div>
-  </div>
+ 
 
   <!-- Rodapé simplificado -->
 <footer class="footer_section">
@@ -261,25 +259,24 @@
               Salão de Beleza
             </a>
             <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-            </p>
-            <div class="footer_social">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-pinterest" aria-hidden="true"></i>
-              </a>
-            </div>
+Priorizamos sua autoestima, com muita delicadeza e cuidado           </p>
+          <div class="footer_social">
+  <a href="https://facebook.com/seu-salao" target="_blank">
+    <i class="fa fa-facebook" aria-hidden="true"></i>
+  </a>
+  <a href="https://twitter.com/seu-salao" target="_blank">
+    <i class="fa fa-twitter" aria-hidden="true"></i>
+  </a>
+  <a href="https://linkedin.com/company/seu-salao" target="_blank">
+    <i class="fa fa-linkedin" aria-hidden="true"></i>
+  </a>
+  <a href="https://instagram.com/seu-salao" target="_blank">
+    <i class="fa fa-instagram" aria-hidden="true"></i>
+  </a>
+  <a href="https://pinterest.com/seu-salao" target="_blank">
+    <i class="fa fa-pinterest" aria-hidden="true"></i>
+  </a>
+</div>
           </div>
         </div>
         <div class="col-md-4 footer-col">
@@ -300,12 +297,7 @@
 
 </div>
 
-  <!-- Scripts -->
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-  <script src="js/login.js"></script>
-  <script src="custom.js"></script>
+ 
 <script>
   // Garante que o conteúdo seja exibido após o carregamento
   document.addEventListener('DOMContentLoaded', function() {
@@ -324,6 +316,13 @@
     }
   });
 </script>
- 
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="js/login.js"></script>
 </body>
 </html>

@@ -41,7 +41,7 @@
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="catalogo.html">
+          <a class="navbar-brand" href="catalogoCadastrado.html">
             <span>
               Salão de Beleza
             </span>
@@ -298,25 +298,24 @@
               Salão de Beleza
             </a>
             <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-            </p>
-            <div class="footer_social">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-pinterest" aria-hidden="true"></i>
-              </a>
-            </div>
+Priorizamos sua autoestima, com muita delicadeza e cuidado            </p>
+           <div class="footer_social">
+  <a href="https://facebook.com/seu-salao" target="_blank">
+    <i class="fa fa-facebook" aria-hidden="true"></i>
+  </a>
+  <a href="https://twitter.com/seu-salao" target="_blank">
+    <i class="fa fa-twitter" aria-hidden="true"></i>
+  </a>
+  <a href="https://linkedin.com/company/seu-salao" target="_blank">
+    <i class="fa fa-linkedin" aria-hidden="true"></i>
+  </a>
+  <a href="https://instagram.com/seu-salao" target="_blank">
+    <i class="fa fa-instagram" aria-hidden="true"></i>
+  </a>
+  <a href="https://pinterest.com/seu-salao" target="_blank">
+    <i class="fa fa-pinterest" aria-hidden="true"></i>
+  </a>
+</div>
           </div>
         </div>
         <div class="col-md-4 footer-col">
@@ -334,14 +333,59 @@
       </div>
     </div>
   </footer>
-      <script>
-  // Carrega o modal de login via fetch
-  fetch('login-modal.html')
-    .then(res => res.text())
-    .then(html => {
-      document.body.insertAdjacentHTML('beforeend', html);
-    });
-</script>
+  
+<!-- Modal de Perfil -->
+<div class="modal fade" id="perfilModal" tabindex="-1" role="dialog" aria-labelledby="perfilModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content perfil-modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="perfilModalLabel">Meu Perfil</h5>
+        <button type="button" class="close perfil-close-btn" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="images/cabeleireira.png" alt="Foto do perfil" class="perfil-img mb-3">
+        <h4>Juliana Wolff</h4>
+        <p class="text-muted mb-2">juliana@email.com</p>
+        <button class="btn btn-outline-secondary btn-sm mb-3" data-toggle="modal" data-target="#editarPerfilModal" data-dismiss="modal">Editar Perfil</button>
+        <hr>
+        <a href="catalogo.html" class="btn btn-rosa">Sair da Conta</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Edição de Perfil -->
+<div class="modal fade" id="editarPerfilModal" tabindex="-1" role="dialog" aria-labelledby="editarPerfilModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content perfil-modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="editarPerfilModalLabel">Editar Perfil</h5>
+        <button type="button" class="close perfil-close-btn" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formEditarPerfil">
+          <div class="form-group">
+            <label for="editarNome">Nome</label>
+            <input type="text" class="form-control" id="editarNome" value="Juliana Wolff" required>
+          </div>
+          <div class="form-group">
+            <label for="editarEmail">Email</label>
+            <input type="email" class="form-control" id="editarEmail" value="juliana@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="editarTelefone">Telefone</label>
+            <input type="text" class="form-control" id="editarTelefone" value="(51) 98765-4321">
+          </div>
+          <button type="submit" class="btn btn-rosa btn-block">Salvar Alterações</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
   <!-- footer section -->
 
  <script src="js/jquery-3.4.1.min.js"></script>

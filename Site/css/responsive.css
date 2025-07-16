@@ -4,6 +4,7 @@
 
 @media (max-width: 992px) {
   .hero_area {
+     background-color: #fff !important;
     min-height: auto;
   }
 

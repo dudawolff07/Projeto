@@ -143,6 +143,29 @@ document.addEventListener('DOMContentLoaded', function() {
             myCarousel.to(0);
         }, 100);
     }
+    document.getElementById('loginLink')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Abre o modal
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.style.display = 'block';
+        // Mostra o formulário de login
+        mostrarFormulario('login');
+      }
+    });
+
+    // Link de Cadastro
+    document.getElementById('registerLink')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Abre o modal
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.style.display = 'block';
+        // Mostra o formulário de cadastro
+        mostrarFormulario('cadastro');
+      }
+    });
+
 });
 
 // Funções específicas para agendamento
@@ -283,18 +306,5 @@ function mostrarFormulario(tipo) {
       }
     });
   });
-// Função chamada após login bem-sucedido
-function onLoginSuccess(userData) {
-    // Atualiza a interface do usuário
-    const nomeEl = document.getElementById('userName');
-    if (nomeEl) {
-        nomeEl.textContent = userData.name.split(' ')[0];
-    }
-    
-    // Se estiver na página de agendamento, atualiza o formulário
-    if (window.location.pathname.includes('agenda.html')) {
-        checkLoginForAppointment();
-    }
-}
 
-// Restante do seu código existente no custom.js...
+
