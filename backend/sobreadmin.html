@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salão de beleza</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+    <style>
+    body.sobre-admin-page {
+      background-color: #ffffff !important;
+    }
+    .hero_area.sub_page {
+      min-height: auto !important;
+      height: auto !important;
+      background-color: transparent !important;
+    }
+  </style>
+</head>
+<body class="sobre-admin-page">
+
+  <div class="hero_area sub_page">
+
+    <div class="container-fluid py-4" style="background-color: #fff;">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+    <!-- header section -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="sobreadmin.html">
+            <span>Salão de Beleza</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class=""></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="indexadmin.html">Início</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="catalogoadmin.html">Catálogo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="agendaadmin.html">Agendar</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="sobreadmin.html">Sobre</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+  </div></div></div></div>
+
+  <main class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        
+        <!-- Card de Informações da Profissional -->
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header bg-pink text-white">
+            <h2 class="heading_container heading_center mb-0">
+              <i class="fa fa-user-circle mr-2"></i>Cadastro e Perfil Profissional
+            </h2>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group mb-4">
+                <label class="font-weight-bold text-secondary">Nome:</label>
+                <input type="text" class="form-control border-0 bg-light" placeholder="Seu nome completo">
+              </div>
+              <div class="form-group mb-4">
+                <label class="font-weight-bold text-secondary">Cargo/Título:</label>
+                <input type="text" class="form-control border-0 bg-light" placeholder="Ex: Cabeleireira Master">
+              </div>
+              <div class="form-group mb-4">
+                <label class="font-weight-bold text-secondary">Descrição:</label>
+                <textarea class="form-control border-0 bg-light" rows="4" placeholder="Fale sobre sua experiência e especialidades"></textarea>
+              </div>
+              <div class="form-group mb-4">
+                <label class="font-weight-bold text-secondary">Imagem de Perfil:</label>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customFile">
+                  <label class="custom-file-label" for="customFile">Escolher arquivo...</label>
+                </div>
+                <small class="form-text text-muted">Recomendado: imagem quadrada com fundo neutro</small>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Card de Formação Profissional -->
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header bg-pink text-white">
+            <h2 class="mb-0">
+              <i class="fa fa-graduation-cap mr-2"></i>Formação Profissional
+            </h2>
+          </div>
+          <div class="card-body">
+            <form id="form-formacao">
+              <div id="formacoes-container">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control border-0 bg-light" placeholder="Ex: Curso de Cabeleireira Avançada - Escola X">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-danger rounded-right" type="button" onclick="removeFormacao(this)">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline-pink mt-2" onclick="addFormacao()">
+                <i class="fa fa-plus mr-2"></i>Adicionar Formação
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Card de Especialidades -->
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header bg-pink text-white">
+            <h2 class="mb-0">
+              <i class="fa fa-star mr-2"></i>Especialidades
+            </h2>
+          </div>
+          <div class="card-body">
+            <form id="form-especialidades">
+              <div id="especialidades-container">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control border-0 bg-light" placeholder="Ex: Corte Feminino, Coloração, Luzes">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-danger rounded-right" type="button" onclick="removeEspecialidade(this)">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline-pink mt-2" onclick="addEspecialidade()">
+                <i class="fa fa-plus mr-2"></i>Adicionar Especialidade
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Botão de Salvar -->
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-rosa btn-lg px-5 py-3" onclick="salvarSobre()">
+            <i class="fa fa-save mr-2"></i>Salvar Alterações
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>Contato</h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>Avenida Borges de Medeiros, 123 - Rolante/RS</span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>Telefone +51 1234567890</span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>salaodebeleza@gmail.com</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">Salão de Beleza</a>
+            <p>
+Priorizamos sua autoestima, com muita delicadeza e cuidado            </p>
+            <div class="footer_social">
+              <a href="https://facebook.com/seu-salao" target="_blank">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="https://twitter.com/seu-salao" target="_blank">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="https://linkedin.com/company/seu-salao" target="_blank">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="https://instagram.com/seu-salao" target="_blank">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="https://pinterest.com/seu-salao" target="_blank">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>Horário de Funcionamento</h4>
+          <p>Terça a Sexta: 9h às 19h</p>
+          <p>Sábado: 9h às 17h</p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>&copy; <span id="displayYear"></span> Todos os direitos reservados</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="js/login.js"></script>
+  
+  <script>
+    function addFormacao() {
+      const container = document.getElementById('formacoes-container');
+      const newInput = `
+        <div class="input-group mb-3">
+          <input type="text" class="form-control border-0 bg-light" placeholder="Informe a formação">
+          <div class="input-group-append">
+            <button class="btn btn-outline-danger rounded-right" type="button" onclick="removeFormacao(this)">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', newInput);
+    }
+
+    function addEspecialidade() {
+      const container = document.getElementById('especialidades-container');
+      const newInput = `
+        <div class="input-group mb-3">
+          <input type="text" class="form-control border-0 bg-light" placeholder="Especialidade">
+          <div class="input-group-append">
+            <button class="btn btn-outline-danger rounded-right" type="button" onclick="removeEspecialidade(this)">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', newInput);
+    }
+
+    function removeFormacao(button) {
+      button.closest('.input-group').remove();
+    }
+
+    function removeEspecialidade(button) {
+      button.closest('.input-group').remove();
+    }
+
+    function salvarSobre() {
+      // Simulação de salvamento
+      const btn = document.querySelector('.btn-rosa');
+      btn.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>Salvando...';
+      btn.disabled = true;
+      
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fa fa-check mr-2"></i>Salvo com sucesso!';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa fa-save mr-2"></i>Salvar Alterações';
+          btn.disabled = false;
+        }, 2000);
+      }, 1500);
+    }
+
+    // Atualiza o label do input file
+    document.querySelector('.custom-file-input').addEventListener('change', function(e) {
+      const fileName = e.target.files[0] ? e.target.files[0].name : "Escolher arquivo...";
+      const label = e.target.nextElementSibling;
+      label.textContent = fileName;
+    });
+  </script>
+</body>
+</html>
