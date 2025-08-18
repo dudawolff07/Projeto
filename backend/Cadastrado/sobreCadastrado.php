@@ -1,12 +1,10 @@
-<?php include 'includes/header.php'; ?>
-
-<!-- Conteúdo Principal (mais próximo do topo) -->
-<section class="about-section">
+<?php include '../includes/headerCadastrado.php'; ?>
+  <section class="about-section">
     <div class="container">
       <div class="professional-card">
         <div class="row align-items-center">
           <div class="col-md-4 text-center">
-            <img src="images/cabeleireira.png" alt="Profissional" class="professional-img">
+            <img src="../images/cabeleireira.png" alt="Profissional" class="professional-img">
           </div>
           <div class="col-md-8">
             <h3>Juliana Wolff</h3>
@@ -63,4 +61,4 @@
     </div>
   </section>
 
-<?php include 'includes/footer.php'; ?>
+  <?php include '../includes/footer.php'; ?>

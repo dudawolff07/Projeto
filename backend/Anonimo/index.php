@@ -1,4 +1,4 @@
-<?php include 'includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
 <!-- Slider Section -->
 <section class="slider_section">
@@ -6,7 +6,7 @@
     <div class="carousel-inner">
       <!-- Slide 1 -->
       <div class="carousel-item active">
-        <div class="full-bg" style="background-image: url('images/fundoprincipal.png');">
+        <div class="full-bg" style="background-image: url('../images/fundoprincipal.png');">
           <div class="container h-100 d-flex align-items-center">
             <div class="detail-box text-white">
               <h1>Transforme seu visual</h1>
@@ -20,7 +20,7 @@
       </div>
       <!-- Slide 2 -->
       <div class="carousel-item">
-        <div class="full-bg" style="background-image: url('images/capa3.png');">
+        <div class="full-bg" style="background-image: url('../images/capa3.png');">
           <div class="container h-100 d-flex align-items-center">
             <div class="detail-box text-white">
               <h1>Estilo que inspira</h1>
@@ -100,4 +100,4 @@
   </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>

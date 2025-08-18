@@ -1,8 +1,8 @@
 <?php
-// Cabeçalho e menu
+session_start(); // Inicia a sessão para verificar login
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
   <meta charset="utf-8" />
@@ -12,20 +12,21 @@
   <title>Salão de Beleza</title>
 
   <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
 
   <!-- owl slider stylesheet -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
   <!-- nice select -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
   <!-- font awesome style -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="../css/font-awesome.min.css" rel="stylesheet" />
 
   <!-- custom styles -->
-  <link href="css/style.css" rel="stylesheet" />
-  <link href="css/responsive.css" rel="stylesheet" />
+  <link href="../css/style.css" rel="stylesheet" />
+  <link href="../css/responsive.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -52,12 +53,99 @@
               <li class="nav-item"><a class="nav-link" href="sobre.php">Sobre</a></li>
             </ul>
             <div class="user_option">
-              <a href="#" id="abrirLoginModal" class="user_link">
-                <i class="fa fa-user" aria-hidden="true"></i>
-              </a>
+              <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+                <a href="perfil.php" class="user_link">
+                  <i class="fa fa-user"></i> <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>
+                </a>
+                <a href="auth/logout.php" class="logout_link">Sair</a>
+              <?php else: ?>
+                <a href="#" id="abrirLoginModal" class="user_link">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                </a>
+              <?php endif; ?>
             </div>
           </div>
         </nav>
       </div>
     </header>
     <!-- end header section -->
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="login-modal">
+      <div class="login-content">
+        <span class="close-modal" onclick="fecharLoginModal()">&times;</span>
+        <div class="login-tabs">
+          <div class="login-tab active" onclick="mostrarFormulario('login')">Login</div>
+          <div class="login-tab" onclick="mostrarFormulario('cadastro')">Cadastro</div>
+        </div>
+
+        <form id="formLogin" class="login-form active" action="auth/login.php" method="POST">
+          <input type="email" name="email" placeholder="E-mail" required>
+          <input type="password" name="senha" placeholder="Senha" required>
+          <button type="submit">Entrar</button>
+          <div class="forgot-password">
+            <a href="#" id="forgotPasswordLink">Esqueceu a senha?</a>
+          </div>
+        </form>
+
+        <form id="formCadastro" class="login-form" action="auth/register.php" method="POST">
+          <input type="text" name="nome_completo" placeholder="Nome completo" required>
+          <input type="email" name="email" placeholder="E-mail" required>
+          <input type="tel" name="telefone" placeholder="Telefone (WhatsApp)" required>
+          <input type="password" name="senha" placeholder="Senha" required>
+          <input type="password" name="confirmar_senha" placeholder="Confirmar senha" required>
+          <button type="submit">Cadastrar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Scripts do Modal -->
+    <script>
+      // Funções para controlar o modal
+      function abrirLoginModal() {
+        document.getElementById('loginModal').style.display = 'block';
+      }
+
+      function fecharLoginModal() {
+        document.getElementById('loginModal').style.display = 'none';
+      }
+
+      function mostrarFormulario(tipo) {
+        const loginForm = document.getElementById('formLogin');
+        const cadastroForm = document.getElementById('formCadastro');
+        const tabs = document.querySelectorAll('.login-tab');
+        
+        if (tipo === 'login') {
+          loginForm.classList.add('active');
+          cadastroForm.classList.remove('active');
+          tabs[0].classList.add('active');
+          tabs[1].classList.remove('active');
+        } else {
+          loginForm.classList.remove('active');
+          cadastroForm.classList.add('active');
+          tabs[0].classList.remove('active');
+          tabs[1].classList.add('active');
+        }
+      }
+
+      // Event listener para o link de login
+      document.getElementById('abrirLoginModal')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        abrirLoginModal();
+      });
+
+      // Fechar modal ao clicar fora
+      window.addEventListener('click', function(event) {
+        const modal = document.getElementById('loginModal');
+        if (event.target === modal) {
+          fecharLoginModal();
+        }
+      });
+
+      // Fechar modal com ESC
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          fecharLoginModal();
+        }
+      });
+    </script>

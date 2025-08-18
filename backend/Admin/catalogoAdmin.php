@@ -1,6 +1,4 @@
-<?php include 'includes/header.php'; ?>
-
-<!-- food section -->
+<?php include 'includes/headerAdmin.php'; ?>
 <section class="food_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
@@ -38,7 +36,10 @@
                     <h6>
                       R$ 120
                     </h6>
-                     <a href="agenda.php" class="agendar-btn" title="ir para agenda">📅</a>
+                     <div class="adm-actions">
+                    <button onclick="editarProduto(this)" title="Editar" class="btn-editar">✏️</button>
+                    <button onclick="apagarProduto(this)" title="Excluir" class="btn-apagar">🗑️</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -61,7 +62,10 @@
                     <h6>
                       R$ 80
                     </h6>
-                     <a href="agenda.php" class="agendar-btn" title="ir para agenda">📅</a>
+                     <div class="adm-actions">
+                    <button onclick="editarProduto(this)" title="Editar" class="btn-editar">✏️</button>
+                    <button onclick="apagarProduto(this)" title="Excluir" class="btn-apagar">🗑️</button>
+                    </div>
                       
                   </div>
                 </div>
@@ -85,7 +89,10 @@
                     <h6>
                       R$ 80
                     </h6>
-                     <a href="agenda.php" class="agendar-btn" title="ir para agenda">📅</a>
+                     <div class="adm-actions">
+                    <button onclick="editarProduto(this)" title="Editar" class="btn-editar">✏️</button>
+                    <button onclick="apagarProduto(this)" title="Excluir" class="btn-apagar">🗑️</button>
+                    </div>
 
                   </div>
                 </div>
@@ -109,7 +116,10 @@
                     <h6>
                       R$ 90
                     </h6>
-                      <a href="agenda.php" class="agendar-btn" title="ir para agenda">📅</a>
+                     <div class="adm-actions">
+                    <button onclick="editarProduto(this)" title="Editar" class="btn-editar">✏️</button>
+                    <button onclick="apagarProduto(this)" title="Excluir" class="btn-apagar">🗑️</button>
+                    </div>
 
                   </div>
                 </div>
@@ -133,7 +143,11 @@
                     <h6>
                       R$ 180
                     </h6>
-                     <a href="agenda.php" class="agendar-btn" title="ir para agenda">📅</a>
+                     <div class="adm-actions">
+                    <button onclick="editarProduto(this)" title="Editar" class="btn-editar">✏️</button>
+                    <button onclick="apagarProduto(this)" title="Excluir" class="btn-apagar">🗑️</button>
+                    </div>
+
 
                   </div>
                 </div>
@@ -157,8 +171,35 @@
                     <h6>
                       R$ 70
                     </h6>
-                    <a href="agenda.php" class="agendar-btn" title="ir para agenda">📅</a>
+                    <div class="adm-actions">
+                    <button onclick="editarProduto(this)" title="Editar" class="btn-editar">✏️</button>
+                    <button onclick="apagarProduto(this)" title="Excluir" class="btn-apagar">🗑️</button>
+                    </div>
+</div>
+</div></div></div></div>
+<div class="col-sm-6 col-lg-4 all coloracao">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/coloracao.png" alt="Coloração">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    Coloração 
+                  </h5>
+                  <p>
+                    Corte personalizado de acordo com o formato do seu rosto e estilo pessoal, realizado por profissionais especializados.
+                  </p>
+                  <div class="options">
+                    <h6>
+                      R$ 70
+                    </h6>
+                    <div class="adm-actions">
+                    <button onclick="editarProduto(this)" title="Editar" class="btn-editar">✏️</button>
+                    <button onclick="apagarProduto(this)" title="Excluir" class="btn-apagar">🗑️</button>
+                    </div>
 </div>
 </div></div></div></div></div></div></div></section>
 
-<?php include 'includes/footer.php'; ?>
+
+  <?php include 'includes/footer.php'; ?>
