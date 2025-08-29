@@ -1,40 +1,47 @@
-<?php include 'includes/headerAdmin.php'; ?>
-<section class="food_section layout_padding">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Painel de agendamentos
-        </h2>
-      </div>
+<?php
+// SIMULAÇÃO DE DADOS
+$agendamentos = [
+    ["cliente" => "Maria Silva", "servico" => "Hidratação Profunda", "data" => "28/08/2025", "hora" => "14:00"],
+    ["cliente" => "João Souza", "servico" => "Corte Masculino", "data" => "28/08/2025", "hora" => "16:30"],
+    ["cliente" => "Ana Paula", "servico" => "Progressiva sem Formol", "data" => "29/08/2025", "hora" => "10:00"]
+];
+?>
 
+<?php include '../includes/headerAdmin.php'; ?>
 
-    <!-- Filtros -->
-    <div class="row filtro-admin mb-4">
-      <div class="col-md-6 col-lg-4">
-        <input type="date" id="filtroData" class="form-control" placeholder="Filtrar por data">
-      </div>
-      
-    </div>
+<div class="container mt-4">
+  <h2 class="mb-4">Agenda de Atendimentos</h2>
 
-    <!-- Tabela de agendamentos -->
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
+  <div class="table-responsive">
+            <table class="table table-hover">
+
+      <thead class="table-light">
+        <tr>
+          <th>Cliente</th>
+          <th>Serviço</th>
+          <th>Data</th>
+          <th>Hora</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($agendamentos as $i => $ag): ?>
           <tr>
-            <th>Cliente</th>
-            <th>Data</th>
-            <th>Hora</th>
-            <th>Serviço</th>
-            <th>Pagamento</th>
-            <th>Status</th>
-            <th>Ações</th>
+            <td><?= $ag["cliente"] ?></td>
+            <td><?= $ag["servico"] ?></td>
+            <td><?= $ag["data"] ?></td>
+            <td><?= $ag["hora"] ?></td>
+            <td>
+              <button class="btn btn-sm btn-danger" 
+                      onclick="alert('Função de cancelamento será implementada em breve!')">
+                Cancelar
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody id="agendamentosTabela">
-          <!-- Preenchido dinamicamente -->
-        </tbody>
-      </table>
-    </div>
-  </main>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-  <?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

@@ -9,7 +9,7 @@
             <div class="full-bg" style="background-image: url('../images/fundoprincipal.png');">
               <div class="container h-100 d-flex align-items-center">
                 <div class="detail-box text-white">
-                  <h1>Bem-vinda de volta, Juliana!</h1>
+                  <h1>Bem-vinda de volta!</h1>
                   <p>Agende seu próximo cuidado capilar conosco.</p>
                   <div class="btn-box">
                     <a href="catalogoCadastrado.php" class="btn1">Ver Catálogo</a>

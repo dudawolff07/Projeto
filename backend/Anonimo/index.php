@@ -46,7 +46,7 @@
   <div class="professional-card">
     <div class="row align-items-center">
       <div class="col-md-4 text-center">
-        <img src="images/cabeleireira.png" alt="Profissional" class="professional-img">
+        <img src="../images/cabeleireira.png" alt="Profissional" class="professional-img">
       </div>
       <div class="col-md-8">
         <h3>Juliana Wolff</h3>

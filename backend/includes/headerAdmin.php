@@ -39,17 +39,17 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  mx-auto ">
-               <li class="nav-item active">
-                <a class="nav-link" href="indexadmin.html">Início</a>
+               <li class="nav-item">
+                <a class="nav-link" href="indexAdmin.php">Início</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="catalogoadmin.html">Catálogo</a>
+                <a class="nav-link" href="catalogoAdmin.php">Catálogo</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="agendaadmin.html">Agenda</a>
+                <a class="nav-link" href="agendaAdmin.php">Agenda</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="sobreadmin.html">Sobre</a>
+                <a class="nav-link" href="sobreAdmin.php">Sobre</a>
               </li>
             </ul>
           </div>

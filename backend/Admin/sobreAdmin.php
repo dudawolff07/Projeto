@@ -1,4 +1,4 @@
-<?php include 'includes/headerAdmin.php'; ?>
+<?php include '../includes/headerAdmin.php'; ?>
 <main class="container py-5">
     <div class="row justify-content-center">
       <div class="col-lg-8">
@@ -98,4 +98,4 @@
     </div>
   </main>
 
-    <?php include 'includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
