@@ -57,7 +57,7 @@ session_start(); // Inicia a sessão para verificar login
                 <a href="perfil.php" class="user_link">
                   <i class="fa fa-user"></i> <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>
                 </a>
-                <a href="auth/logout.php" class="logout_link">Sair</a>
+                <a href="includes/logout.php" class="logout_link">Sair</a>
               <?php else: ?>
                 <a href="#" id="abrirLoginModal" class="user_link">
                   <i class="fa fa-user" aria-hidden="true"></i>
@@ -74,12 +74,41 @@ session_start(); // Inicia a sessão para verificar login
     <div id="loginModal" class="login-modal">
       <div class="login-content">
         <span class="close-modal" onclick="fecharLoginModal()">&times;</span>
+        
+        <!-- Mensagens de feedback -->
+        <?php if (isset($_SESSION['erro_login'])): ?>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?php echo $_SESSION['erro_login']; unset($_SESSION['erro_login']); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <?php endif; ?>
+        
+        <?php if (isset($_SESSION['erro_cadastro'])): ?>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?php echo $_SESSION['erro_cadastro']; unset($_SESSION['erro_cadastro']); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <?php endif; ?>
+        
+        <?php if (isset($_SESSION['msg'])): ?>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <?php endif; ?>
+
         <div class="login-tabs">
           <div class="login-tab active" onclick="mostrarFormulario('login')">Login</div>
           <div class="login-tab" onclick="mostrarFormulario('cadastro')">Cadastro</div>
         </div>
 
-        <form id="formLogin" class="login-form active" action="auth/login.php" method="POST">
+          <form id="formLogin" class="login-form active" action="../includes/login_process.php" method="POST">
           <input type="email" name="email" placeholder="E-mail" required>
           <input type="password" name="senha" placeholder="Senha" required>
           <button type="submit">Entrar</button>
@@ -88,8 +117,8 @@ session_start(); // Inicia a sessão para verificar login
           </div>
         </form>
 
-        <form id="formCadastro" class="login-form" action="auth/register.php" method="POST">
-          <input type="text" name="nome_completo" placeholder="Nome completo" required>
+          <form id="formCadastro" class="login-form" action="../includes/register_process.php" method="POST">
+          <input type="text" name="nome" placeholder="Nome completo" required>
           <input type="email" name="email" placeholder="E-mail" required>
           <input type="tel" name="telefone" placeholder="Telefone (WhatsApp)" required>
           <input type="password" name="senha" placeholder="Senha" required>
@@ -104,6 +133,13 @@ session_start(); // Inicia a sessão para verificar login
       // Funções para controlar o modal
       function abrirLoginModal() {
         document.getElementById('loginModal').style.display = 'block';
+        // Limpar mensagens ao abrir o modal
+        setTimeout(() => {
+          const alerts = document.querySelectorAll('.alert');
+          alerts.forEach(alert => {
+            alert.style.display = 'none';
+          });
+        }, 5000);
       }
 
       function fecharLoginModal() {
@@ -146,6 +182,17 @@ session_start(); // Inicia a sessão para verificar login
       document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
           fecharLoginModal();
+        }
+      });
+
+      // Validação de confirmação de senha
+      document.querySelector('#formCadastro').addEventListener('submit', function(e) {
+        const senha = this.querySelector('input[name="senha"]').value;
+        const confirmarSenha = this.querySelector('input[name="confirmar_senha"]').value;
+        
+        if (senha !== confirmarSenha) {
+          e.preventDefault();
+          alert('As senhas não coincidem!');
         }
       });
     </script>

@@ -1,5 +1,6 @@
 <?php
-// Cabeçalho e menu
+session_start();
+include 'db.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,30 +64,25 @@
       background-color: #e6729a;
       color: white;
     }
-    
-    /* Estilo para o novo ícone de perfil */
-    .user-profile-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
+
+    .btn-outline-rosa {
+      border: 1px solid #f783ac;
+      color: #f783ac;
+      background: white;
+      padding: 8px 15px;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+
+    .btn-outline-rosa:hover {
       background-color: #f783ac;
       color: white;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-      font-size: 18px;
     }
     
-    .user-profile-icon:hover {
-      background-color: #e6729a;
-      transform: scale(1.05);
-    }
-    
-    /* Alternativa com imagem de avatar */
+    /* Estilo para o avatar do usuário */
     .user-avatar {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid #f783ac;
@@ -97,6 +93,48 @@
       border-color: #e6729a;
       transform: scale(1.05);
     }
+
+    /* Estilos para o formulário de edição */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-control {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px 15px;
+      transition: all 0.3s;
+    }
+
+    .form-control:focus {
+      border-color: #f783ac;
+      box-shadow: 0 0 0 0.2rem rgba(247, 131, 172, 0.25);
+    }
+
+    /* Alertas personalizados */
+    .alert-perfil {
+      border-radius: 8px;
+      border: none;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+    }
+
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .alert-danger {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
   </style>
 </head>
 
@@ -106,7 +144,7 @@
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.php">
+          <a class="navbar-brand" href="indexCadastrado.php">
             <span>Salão de Beleza</span>
           </a>
 
@@ -125,24 +163,8 @@
             </ul>
             <div class="user_option">
               <a href="#" id="abrirPerfilModal" class="user_link">
-                <!-- Escolha uma das opções abaixo (remova o comentário da que preferir) -->
-                
-                <!-- Opção 1: Ícone moderno com Boxicons -->
-                <div class="user-profile-icon">
-                  <i class='bx bx-user'></i>
-                </div>
-                
-                <!-- Opção 2: Ícone com círculo (descomente para usar) -->
-                <!--
-                <div class="user-profile-icon">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                </div>
-                -->
-                
-                <!-- Opção 3: Avatar com imagem (descomente para usar) -->
-                <!--
-                <img src="../images/cabeleireira.png" alt="Perfil" class="user-avatar">
-                -->
+                <!-- Avatar SEMPRE com foto padrão -->
+                <img src="../images/avatar-default.png" alt="Perfil" class="user-avatar">
               </a>
             </div>
           </div>
@@ -164,12 +186,68 @@
           </div>
 
           <div class="modal-body text-center">
-            <img src="../images/cabeleireira.png" alt="Foto do perfil" class="perfil-img mb-3">
-            <h4>Juliana Wolff</h4>
-            <p class="text-muted mb-2">juliana@email.com</p>
-            <button class="btn btn-outline-secondary btn-sm mb-3" data-toggle="modal" data-target="#editarPerfilModal" data-dismiss="modal">Editar Perfil</button>
+            <!-- Mensagens de feedback -->
+            <?php if (isset($_SESSION['msg_perfil'])): ?>
+              <div class="alert alert-success alert-perfil alert-dismissible fade show" role="alert">
+                <?php echo $_SESSION['msg_perfil']; unset($_SESSION['msg_perfil']); ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <?php endif; ?>
+            
+            <?php if (isset($_SESSION['erro_perfil'])): ?>
+              <div class="alert alert-danger alert-perfil alert-dismissible fade show" role="alert">
+                <?php echo $_SESSION['erro_perfil']; unset($_SESSION['erro_perfil']); ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <?php endif; ?>
+
+            <!-- Foto SEMPRE padrão -->
+            <img src="../images/avatar-default.png" alt="Foto do perfil" class="perfil-img mb-3">
+            
+            <?php
+            // Buscar dados do usuário logado
+            $nome_usuario = 'Usuário';
+            $email_usuario = 'email@exemplo.com';
+            $telefone_usuario = '';
+
+            if (isset($_SESSION['usuario_id'])) {
+                $stmt = $conn->prepare("SELECT nome_usuario, email_usuario, telefone_usuario FROM usuario WHERE usuario_id = ?");
+                $stmt->bind_param("i", $_SESSION['usuario_id']);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                
+                if ($result->num_rows === 1) {
+                    $user = $result->fetch_assoc();
+                    $nome_usuario = $user['nome_usuario'];
+                    $email_usuario = $user['email_usuario'];
+                    $telefone_usuario = $user['telefone_usuario'];
+                }
+            }
+            ?>
+            
+            <h4><?php echo htmlspecialchars($nome_usuario); ?></h4>
+            <p class="text-muted mb-2"><?php echo htmlspecialchars($email_usuario); ?></p>
+            <?php if (!empty($telefone_usuario)): ?>
+              <p class="text-muted mb-3"><?php echo htmlspecialchars($telefone_usuario); ?></p>
+            <?php endif; ?>
+            
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <button class="btn btn-outline-rosa" data-toggle="modal" data-target="#editarPerfilModal" data-dismiss="modal">
+                <i class="fa fa-edit"></i> Editar Perfil
+              </button>
+              <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#alterarSenhaModal" data-dismiss="modal">
+                <i class="fa fa-lock"></i> Alterar Senha
+              </button>
+            </div>
+            
             <hr>
-            <a href="../index.html" class="btn btn-rosa">Sair da Conta</a>
+            <a href="../includes/logout.php" class="btn btn-rosa">
+              <i class="fa fa-sign-out"></i> Sair da Conta
+            </a>
           </div>
 
         </div>
@@ -189,22 +267,72 @@
           </div>
 
           <div class="modal-body">
-            <form id="formEditarPerfil">
-              <div class="form-group">
-                <label for="editarNome">Nome</label>
-                <input type="text" class="form-control" id="editarNome" value="Juliana Wolff" required>
+            <form id="formEditarPerfil" action="../includes/update_profile.php" method="POST">
+              <div class="form-group text-center">
+                <img src="../images/avatar-default.png" alt="Foto do perfil" class="perfil-img mb-3">
+                <small class="form-text text-muted d-block">Foto padrão do sistema</small>
               </div>
 
               <div class="form-group">
-                <label for="editarEmail">Email</label>
-                <input type="email" class="form-control" id="editarEmail" value="juliana@email.com" required>
+                <label for="editarNome">Nome Completo</label>
+                <input type="text" class="form-control" id="editarNome" name="nome" value="<?php echo htmlspecialchars($nome_usuario); ?>" required>
               </div>
 
               <div class="form-group">
-                <label for="editarTelefone">Telefone</label>
-                <input type="text" class="form-control" id="editarTelefone" value="(51) 98765-4321">
+                <label for="editarEmail">E-mail</label>
+                <input type="email" class="form-control" id="editarEmail" name="email" value="<?php echo htmlspecialchars($email_usuario); ?>" required>
               </div>
-              <button type="submit" class="btn btn-rosa btn-block">Salvar Alterações</button>
+
+              <div class="form-group">
+                <label for="editarTelefone">Telefone/WhatsApp</label>
+                <input type="text" class="form-control" id="editarTelefone" name="telefone" value="<?php echo htmlspecialchars($telefone_usuario); ?>" placeholder="(11) 99999-9999">
+              </div>
+              
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-secondary flex-fill" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-rosa flex-fill">Salvar Alterações</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Alteração de Senha -->
+    <div class="modal fade" id="alterarSenhaModal" tabindex="-1" role="dialog" aria-labelledby="alterarSenhaModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content perfil-modal-content">
+
+          <div class="modal-header border-0">
+            <h5 class="modal-title" id="alterarSenhaModalLabel">Alterar Senha</h5>
+            <button type="button" class="close perfil-close-btn" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form id="formAlterarSenha" action="../includes/update_password.php" method="POST">
+              <div class="form-group">
+                <label for="senha_atual">Senha Atual</label>
+                <input type="password" class="form-control" id="senha_atual" name="senha_atual" required>
+              </div>
+
+              <div class="form-group">
+                <label for="nova_senha">Nova Senha</label>
+                <input type="password" class="form-control" id="nova_senha" name="nova_senha" required minlength="6">
+                <small class="form-text text-muted">Mínimo 6 caracteres</small>
+              </div>
+
+              <div class="form-group">
+                <label for="confirmar_senha">Confirmar Nova Senha</label>
+                <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required>
+              </div>
+              
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-secondary flex-fill" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-rosa flex-fill">Alterar Senha</button>
+              </div>
             </form>
           </div>
 
@@ -215,17 +343,30 @@
     <script>
     // Script para abrir o modal de perfil
     document.addEventListener('DOMContentLoaded', function() {
-      // Alterar o ID do link para abrir o modal de perfil
+      // Abrir modal de perfil
       document.getElementById('abrirPerfilModal').addEventListener('click', function(e) {
         e.preventDefault();
         $('#perfilModal').modal('show');
       });
-      
-      // Script para o formulário de edição de perfil
-      document.getElementById('formEditarPerfil').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Perfil atualizado com sucesso!');
-        $('#editarPerfilModal').modal('hide');
+
+      // Validação de confirmação de senha
+      document.getElementById('formAlterarSenha')?.addEventListener('submit', function(e) {
+        const novaSenha = document.getElementById('nova_senha').value;
+        const confirmarSenha = document.getElementById('confirmar_senha').value;
+        
+        if (novaSenha !== confirmarSenha) {
+          e.preventDefault();
+          alert('As senhas não coincidem!');
+        }
+      });
+
+      // Fechar modais com ESC
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          $('.modal').modal('hide');
+        }
       });
     });
     </script>
+</body>
+</html>
