@@ -3373,3 +3373,618 @@ body.agenda-page {
   clear: both;        /* Garante que eles não fiquem flutuando em cima de outros elementos */
   overflow: hidden;   /* Evita que elementos internos vazem */
 }
+/* ===== ESTILOS PARA O CATÁLOGO DINÂMICO ===== */
+
+/* Badge de tempo nas imagens */
+.tempo-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* Container de preço e tempo */
+.price-time {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex-grow: 1;
+}
+
+/* Informação de tempo */
+.time-info {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.time-info i {
+    color: #ff4d94;
+}
+
+/* Botão de agendar */
+.agendar-btn {
+    background: #ff4d94;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.agendar-btn:hover {
+    background: #e04582;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 77, 148, 0.3);
+}
+
+/* Container de opções */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+/* Imagem com posição relativa para o badge */
+.img-box {
+    position: relative;
+    overflow: hidden;
+}
+
+/* ===== ESTILOS PARA O PAINEL ADMIN ===== */
+
+/* Botão rosa personalizado */
+.btn-rosa {
+    background-color: #ff4d94;
+    border-color: #ff4d94;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-rosa:hover {
+    background-color: #e04582;
+    border-color: #e04582;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Badges de categoria */
+.badge-secondary {
+    background-color: #6c757d;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+/* Tabela responsiva */
+.table th {
+    background-color: #343a40;
+    color: white;
+    border: none;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Alertas */
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+/* Modais */
+.mod
+/* ===== ESTILOS PARA AGENDAMENTO ===== */
+
+/* Card do profissional */
+.professional-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 2px solid #ffdeeb;
+}
+
+.professional-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ff4d94;
+    margin-bottom: 15px;
+}
+
+.contact-icon {
+    width: 20px;
+    margin-right: 8px;
+    color: #ff4d94;
+}
+
+/* Time Picker */
+.time-picker {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.time-period {
+    margin-bottom: 20px;
+}
+
+.time-period h6 {
+    color: #ff4d94;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ffdeeb;
+    padding-bottom: 5px;
+}
+
+.time-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 10px;
+}
+
+.time-option {
+    display: block;
+    text-align: center;
+}
+
+.time-option input[type="radio"] {
+    display: none;
+}
+
+.time-option span {
+    display: block;
+    padding: 10px 5px;
+    background: white;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.time-option input[type="radio"]:checked + span {
+    background: #ff4d94;
+    color: white;
+    border-color: #ff4d94;
+    transform: scale(1.05);
+}
+
+.time-option span:hover {
+    border-color: #ff4d94;
+    transform: translateY(-2px);
+}
+
+/* Botões */
+.btn-outline-rosa {
+    border: 2px solid #ff4d94;
+    color: #ff4d94;
+    background: transparent;
+}
+
+.btn-outline-rosa:hover {
+    background: #ff4d94;
+    color: white;
+}
+
+/* Alertas personalizados */
+.alert-info {
+    border-left: 4px solid #17a2b8;
+}
+
+.alert-warning {
+    border-left: 4px solid #ffc107;
+}
+
+.alert-success {
+    border-left: 4px solid #28a745;
+}
+
+.alert-danger {
+    border-left: 4px solid #dc3545;
+}
+
+/* Tabela admin */
+.table-hover tbody tr:hover {
+    background-color: rgba(255, 77, 148, 0.05);
+}
+
+/* Badges */
+.badge {
+    font-size: 0.75em;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .professional-card {
+        margin-bottom: 20px;
+    }
+    
+    .time-options {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    }
+    
+    .btn-group-sm .btn {
+        padding: 0.25rem 0.4rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* Loading spinner */
+.fa-spinner {
+    color: #ff4d94;
+}
+/* Estilo para campos readonly - igual ao agendaCadastrado.php */
+input[readonly] {
+  background-color: #f8f9fa !important;
+  border-color: #e9ecef !important;
+  color: #495057 !important;
+  cursor: not-allowed;
+}
+
+/* Texto de "Dados do seu cadastro" */
+.text-muted small {
+  font-size: 0.85rem;
+  color: #6c757d !important;
+}
+
+/* Container do formulário para consistência */
+.form-container {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  border: 1px solid var(--rosa-medio);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+/* Filtros do catálogo - ESTILO UNIFICADO */
+.filters_menu {
+    justify-content: center;
+    margin-bottom: 40px;
+    display: flex;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.filters_menu li {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 30px;
+    margin: 0 5px 10px 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 2px solid transparent;
+}
+
+.filters_menu li.active,
+.filters_menu li:hover {
+    background-color: #f783ac;
+    color: #fff;
+    border-color: #f783ac;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(247, 131, 172, 0.3);
+}
+
+/* Garantir que o estilo seja aplicado em ambas as páginas */
+body.catalogo-page .filters_menu li.active,
+body.catalogo-page .filters_menu li:hover,
+body .filters_menu li.active,
+body .filters_menu li:hover {
+    background-color: #f783ac !important;
+    color: #fff !important;
+}
+/* Centralização de títulos em todas as páginas */
+.heading_container.heading_center {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heading_container.heading_center h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e64980;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.heading_container.heading_center h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #f783ac;
+    margin: 15px auto 0;
+}
+
+/* Melhorias para a página de agenda */
+.bg-light-pink {
+    background: linear-gradient(135deg, #f783ac, #e64980) !important;
+}
+
+/* Remove cores azuis e vermelhas da agenda */
+.table-success {
+    background-color: rgba(247, 131, 172, 0.1) !important;
+    border-left: 4px solid #f783ac;
+}
+
+.table-warning {
+    background-color: rgba(255, 193, 7, 0.1) !important;
+    border-left: 4px solid #ffc107;
+}
+
+.table-info {
+    background-color: rgba(23, 162, 184, 0.1) !important;
+    border-left: 4px solid #17a2b8;
+}
+
+.table-danger {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+    border-left: 4px solid #dc3545;
+}
+
+/* Badges com cores do tema */
+.badge-success {
+    background-color: #f783ac !important;
+}
+
+.badge-warning {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+.badge-primary {
+    background-color: #17a2b8 !important;
+}
+
+.badge-danger {
+    background-color: #e64980 !important;
+}
+
+.badge-secondary {
+    background-color: #6c757d !important;
+}
+
+.badge-light {
+    background-color: #f8f9fa !important;
+    color: #495057 !important;
+}
+
+/* Ações na tabela */
+.btn-action {
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-success {
+    background-color: #f783ac;
+    border-color: #f783ac;
+}
+
+.btn-success:hover {
+    background-color: #e64980;
+    border-color: #e64980;
+}
+
+.btn-primary {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-danger {
+    background-color: #e64980;
+    border-color: #e64980;
+}
+
+.btn-info {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+/* Tooltip personalizado */
+.observacoes-content {
+    background-color: #fff0f6;
+    border: 1px solid #f783ac;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* Avatar circular */
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    background: linear-gradient(135deg, #f783ac, #e64980);
+    color: white;
+}
+
+/* Responsividade para a tabela */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .btn-action {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+    
+    .action-buttons {
+        gap: 3px;
+    }
+}
+
+/* Alinhamento vertical das células da tabela */
+.table td {
+    vertical-align: middle;
+    padding: 12px 8px;
+}
+
+/* Cabeçalho da tabela */
+.table thead th {
+    background-color: #fff0f6;
+    color: #e64980;
+    font-weight: 600;
+    border-bottom: 2px solid #f783ac;
+    padding: 15px 8px;
+}
+/* Garantir que a agenda tenha espaço suficiente acima do footer */
+body.admin-agenda-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.admin-agenda-page main {
+    flex: 1;
+    margin-bottom: 100px !important;
+}
+
+/* Melhorias específicas para a tabela de agenda */
+.table-agenda {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-agenda thead th {
+    background: linear-gradient(135deg, #f783ac, #e64980);
+    color: white;
+    border: none;
+    padding: 15px 12px;
+    font-weight: 600;
+}
+
+.table-agenda tbody tr:hover {
+    background-color: rgba(247, 131, 172, 0.05);
+}
+
+/* Status badges personalizados */
+.badge-success {
+    background: linear-gradient(135deg, #f783ac, #e64980) !important;
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, #ffc107, #ff8c00) !important;
+    color: #000 !important;
+}
+
+.badge-primary {
+    background: linear-gradient(135deg, #17a2b8, #138496) !important;
+}
+
+.badge-danger {
+    background: linear-gradient(135deg, #e64980, #c2185b) !important;
+}
+
+/* Classes das linhas da tabela com cores suaves */
+.table-success {
+    background-color: rgba(247, 131, 172, 0.08) !important;
+    border-left: 4px solid #f783ac;
+}
+
+.table-warning {
+    background-color: rgba(255, 193, 7, 0.08) !important;
+    border-left: 4px solid #ffc107;
+}
+
+.table-info {
+    background-color: rgba(23, 162, 184, 0.08) !important;
+    border-left: 4px solid #17a2b8;
+}
+
+.table-danger {
+    background-color: rgba(230, 73, 128, 0.08) !important;
+    border-left: 4px solid #e64980;
+}
+
+/* Responsividade extrema para telas muito pequenas */
+@media (max-width: 480px) {
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .card-body {
+        padding: 10px !important;
+    }
+    
+    .table td, .table th {
+        padding: 8px 5px;
+    }
+    
+    .heading_container h2 {
+        font-size: 1.5rem !important;
+    }
+}
+/* Estilos harmonizados para ambas as páginas */
+.shadow-soft {
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08) !important;
+}
+
+.bg-light-pink {
+    background: linear-gradient(135deg, #f783ac, #e64980) !important;
+}
+
+.heading_container.heading_center h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e64980;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.heading_container.heading_center h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #f783ac;
+    margin: 15px auto 0;
+}
+
+/* Botão rosa consistente */
+.btn-rosa {
+    background: linear-gradient(135deg, #f783ac, #e64980);
+    border: none;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-rosa:hover {
+    background: linear-gradient(135deg, #e64980, #f783ac);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(232, 62, 140, 0.3);
+    color: white;
+}

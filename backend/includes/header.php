@@ -1,5 +1,8 @@
 <?php
-session_start(); // Inicia a sessão para verificar login
+// Verificar se a sessão já foi iniciada
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -57,7 +60,7 @@ session_start(); // Inicia a sessão para verificar login
                 <a href="perfil.php" class="user_link">
                   <i class="fa fa-user"></i> <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>
                 </a>
-                <a href="includes/logout.php" class="logout_link">Sair</a>
+                <a href="../includes/logout.php" class="logout_link">Sair</a>
               <?php else: ?>
                 <a href="#" id="abrirLoginModal" class="user_link">
                   <i class="fa fa-user" aria-hidden="true"></i>
@@ -108,25 +111,58 @@ session_start(); // Inicia a sessão para verificar login
           <div class="login-tab" onclick="mostrarFormulario('cadastro')">Cadastro</div>
         </div>
 
-          <form id="formLogin" class="login-form active" action="../includes/login_process.php" method="POST">
+        <form id="formLogin" class="login-form active" action="../includes/login_process.php" method="POST">
           <input type="email" name="email" placeholder="E-mail" required>
           <input type="password" name="senha" placeholder="Senha" required>
           <button type="submit">Entrar</button>
-          <div class="forgot-password">
-            <a href="#" id="forgotPasswordLink">Esqueceu a senha?</a>
-          </div>
         </form>
 
-          <form id="formCadastro" class="login-form" action="../includes/register_process.php" method="POST">
+        <form id="formCadastro" class="login-form" action="../includes/register_process.php" method="POST" enctype="multipart/form-data">
           <input type="text" name="nome" placeholder="Nome completo" required>
           <input type="email" name="email" placeholder="E-mail" required>
           <input type="tel" name="telefone" placeholder="Telefone (WhatsApp)" required>
+          
+          <!-- Campo de foto de perfil (opcional) -->
+          
           <input type="password" name="senha" placeholder="Senha" required>
           <input type="password" name="confirmar_senha" placeholder="Confirmar senha" required>
           <button type="submit">Cadastrar</button>
         </form>
       </div>
     </div>
+
+    <style>
+      .form-group-foto {
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .foto-label {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #f8f9fa;
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: #6c757d;
+        width: 100%;
+      }
+
+      .foto-label:hover {
+        background-color: #e9ecef;
+        border-color: #f783ac;
+      }
+
+      .foto-label i {
+        margin-right: 5px;
+      }
+
+      #preview-container {
+        text-align: center;
+        margin-top: 10px;
+      }
+    </style>
 
     <!-- Scripts do Modal -->
     <script>
@@ -164,10 +200,41 @@ session_start(); // Inicia a sessão para verificar login
         }
       }
 
+      // Função para fazer preview da foto selecionada
+      function previewFoto(input) {
+        const previewContainer = document.getElementById('preview-container');
+        const preview = document.getElementById('preview-foto');
+        
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          
+          reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.style.display = 'block';
+          }
+          
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      // Função para remover a foto selecionada
+      function removerFoto() {
+        const input = document.getElementById('foto_perfil');
+        const previewContainer = document.getElementById('preview-container');
+        
+        input.value = '';
+        previewContainer.style.display = 'none';
+      }
+
       // Event listener para o link de login
       document.getElementById('abrirLoginModal')?.addEventListener('click', function(e) {
         e.preventDefault();
         abrirLoginModal();
+      });
+
+      // Event listener para o label da foto
+      document.querySelector('.foto-label')?.addEventListener('click', function() {
+        document.getElementById('foto_perfil').click();
       });
 
       // Fechar modal ao clicar fora
@@ -186,13 +253,20 @@ session_start(); // Inicia a sessão para verificar login
       });
 
       // Validação de confirmação de senha
-      document.querySelector('#formCadastro').addEventListener('submit', function(e) {
+      document.querySelector('#formCadastro')?.addEventListener('submit', function(e) {
         const senha = this.querySelector('input[name="senha"]').value;
         const confirmarSenha = this.querySelector('input[name="confirmar_senha"]').value;
         
         if (senha !== confirmarSenha) {
           e.preventDefault();
           alert('As senhas não coincidem!');
+        }
+        
+        // Validar tamanho do arquivo se existir
+        const fotoInput = document.getElementById('foto_perfil');
+        if (fotoInput.files[0] && fotoInput.files[0].size > 2 * 1024 * 1024) {
+          e.preventDefault();
+          alert('A imagem deve ter no máximo 2MB.');
         }
       });
     </script>

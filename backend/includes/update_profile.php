@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['usuario_id'])) {
             exit();
         }
         
-        // Atualizar apenas dados básicos (SEM foto)
+        // Atualizar dados do usuário (sem foto)
         $stmt = $conn->prepare("UPDATE usuario SET nome_usuario = ?, email_usuario = ?, telefone_usuario = ? WHERE usuario_id = ?");
         $stmt->bind_param("sssi", $nome, $email, $telefone, $usuario_id);
         

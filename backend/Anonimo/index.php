@@ -1,4 +1,8 @@
-<?php include '../includes/header.php'; ?>
+<?php 
+include '../includes/header.php'; 
+include '../includes/db.php';
+include '../includes/profissional_functions.php';
+?>
 
 <!-- Slider Section -->
 <section class="slider_section">
@@ -46,35 +50,57 @@
   <div class="professional-card">
     <div class="row align-items-center">
       <div class="col-md-4 text-center">
-        <img src="../images/cabeleireira.png" alt="Profissional" class="professional-img">
+        <img src="../images/cabeleireira.png" alt="Juliana Wolff" class="professional-img">
       </div>
       <div class="col-md-8">
         <h3>Juliana Wolff</h3>
         <p class="text-muted">Especialista Capilar | Proprietária</p>
         <div class="mb-3">
-          <p>Com mais de 12 anos de experiência no mercado de beleza, transformo cabelos e autoestimas com técnicas avançadas e atendimento personalizado.</p>
+          <p><?php echo exibirSobre($conn); ?></p>
         </div>
         <div class="mb-3">
           <h5>Formação Profissional</h5>
           <ul>
-            <li>Graduação em Estética e Cosmética</li>
-            <li>Pós-graduação em Tricologia Capilar</li>
-            <li>Certificação Internacional em Colorimetria</li>
+            <?php 
+            $formacoes = getInformacoesProfissional($conn, 'formacao');
+            if (empty($formacoes)) {
+                // Conteúdo padrão harmonioso
+                echo '<li>Graduação em Estética e Cosmética</li>';
+                echo '<li>Pós-graduação em Tricologia Capilar</li>';
+                echo '<li>Certificação Internacional em Colorimetria</li>';
+            } else {
+                // Conteúdo dinâmico mantendo o mesmo estilo
+                foreach (array_slice($formacoes, 0, 3) as $formacao) {
+                    echo '<li>' . htmlspecialchars($formacao['titulo']) . '</li>';
+                }
+            }
+            ?>
           </ul>
         </div>
         <div>
           <h5>Especialidades</h5>
           <div class="mt-2">
-            <span class="specialty-badge">Cabelos Danificados</span>
-            <span class="specialty-badge">Coloração Vegana</span>
-            <span class="specialty-badge">Cortes Personalizados</span>
+            <?php 
+            $especialidades = getInformacoesProfissional($conn, 'especialidade');
+            if (empty($especialidades)) {
+                // Conteúdo padrão harmonioso
+                echo '<span class="specialty-badge">Cabelos Danificados</span>';
+                echo '<span class="specialty-badge">Coloração Vegana</span>';
+                echo '<span class="specialty-badge">Cortes Personalizados</span>';
+            } else {
+                // Conteúdo dinâmico mantendo o mesmo estilo
+                foreach (array_slice($especialidades, 0, 3) as $especialidade) {
+                    echo '<span class="specialty-badge">' . htmlspecialchars($especialidade['titulo']) . '</span>';
+                }
+            }
+            ?>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Ícones -->
+  <!-- Ícones (mantém estático - parte do design) -->
   <div class="row mt-4">
     <div class="col-md-4 mb-4">
       <div class="text-center p-3">
@@ -100,4 +126,4 @@
   </div>
 </div>
 
-    <?php include '../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

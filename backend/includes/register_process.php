@@ -37,8 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash da senha
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
     
-    // Inserir novo usuário SEM foto (será NULL) - foto padrão será usada
-    $stmt = $conn->prepare("INSERT INTO usuario (nome_usuario, telefone_usuario, email_usuario, senha, tipo_id, foto_perfil) VALUES (?, ?, ?, ?, 2, NULL)");
+    // Inserir novo usuário (sem foto)
+    $stmt = $conn->prepare("INSERT INTO usuario (nome_usuario, telefone_usuario, email_usuario, senha, tipo_id) VALUES (?, ?, ?, ?, 2)");
     $stmt->bind_param("ssss", $nome, $telefone, $email, $senha_hash);
     
     if ($stmt->execute()) {

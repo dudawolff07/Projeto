@@ -1,4 +1,8 @@
-<?php include '../includes/header.php'; ?>
+<?php include '../includes/header.php';
+include '../includes/db.php';
+
+include '../includes/profissional_functions.php';
+ ?>
 
 <!-- Conteúdo Principal (mais próximo do topo) -->
 <section class="about-section">
@@ -36,31 +40,30 @@
           </div>
         </div>
       </div>
-
-      <div class="row mt-4">
-        <div class="col-md-4 mb-4">
-          <div class="text-center p-3">
-            <i class="fa fa-scissors fa-3x mb-3" style="color: #f783ac;"></i>
-            <h4>Técnica</h4>
-            <p>Domínio das mais modernas técnicas internacionais de corte e coloração.</p>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="text-center p-3">
-            <i class="fa fa-leaf fa-3x mb-3" style="color: #f783ac;"></i>
-            <h4>Produtos</h4>
-            <p>Utilizamos apenas produtos naturais e cruelty-free em todos os tratamentos.</p>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="text-center p-3">
-            <i class="fa fa-heart fa-3x mb-3" style="color: #f783ac;"></i>
-            <h4>Atendimento</h4>
-            <p>Cada cliente recebe um diagnóstico completo e tratamento individualizado.</p>
-          </div>
-        </div>
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+      <div class="text-center p-3">
+        <i class="fa fa-scissors fa-3x mb-3" style="color: #f783ac;"></i>
+        <h4>Técnica</h4>
+        <p>Domínio das mais modernas técnicas internacionais de corte e coloração.</p>
       </div>
     </div>
+    <div class="col-md-4 mb-4">
+      <div class="text-center p-3">
+        <i class="fa fa-leaf fa-3x mb-3" style="color: #f783ac;"></i>
+        <h4>Produtos</h4>
+        <p>Utilizamos apenas produtos naturais e cruelty-free em todos os tratamentos.</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="text-center p-3">
+        <i class="fa fa-heart fa-3x mb-3" style="color: #f783ac;"></i>
+        <h4>Atendimento</h4>
+        <p>Cada cliente recebe um diagnóstico completo e tratamento individualizado.</p>
+      </div>
+    </div>
+  </div>
+</div>
   </section>
 
 <?php include '../includes/footer.php'; ?>

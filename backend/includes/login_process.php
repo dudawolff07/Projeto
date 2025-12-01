@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['usuario_tipo'] = $user['tipo_id'];
             $_SESSION['usuario_email'] = $email;
             
+            // CORREÇÃO: Caminhos relativos corretos a partir da pasta includes
             if ($user['tipo_id'] == 1) { // Admin
                 header("Location: ../Admin/indexAdmin.php");
             } else { // Usuário comum
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     $_SESSION['erro_login'] = "E-mail ou senha incorretos!";
-    header("Location: ../Anonimo/index.php");  // CAMINHO CORRIGIDO
+    header("Location: ../Anonimo/index.php");  // CAMINHO CORRETO
     exit();
 }
 ?>

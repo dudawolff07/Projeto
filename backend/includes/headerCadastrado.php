@@ -1,6 +1,24 @@
 <?php
-session_start();
+// Iniciar sessão se não estiver iniciada
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 include 'db.php';
+
+// Buscar dados do usuário logado
+$nome_usuario = 'Usuário';
+if (isset($_SESSION['usuario_id'])) {
+    $stmt = $conn->prepare("SELECT nome_usuario FROM usuario WHERE usuario_id = ?");
+    $stmt->bind_param("i", $_SESSION['usuario_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        $nome_usuario = $user['nome_usuario'];
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,14 +61,6 @@ include 'db.php';
       color: #999;
     }
     
-    .perfil-img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #f783ac;
-    }
-    
     .btn-rosa {
       background-color: #f783ac;
       color: white;
@@ -79,19 +89,26 @@ include 'db.php';
       color: white;
     }
     
-    /* Estilo para o avatar do usuário */
-    .user-avatar {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #f783ac;
+    /* Estilo para o nome do usuário */
+    .user-name {
+      color: #333;
+      font-weight: 600;
+      padding: 8px 15px;
+      border-radius: 20px;
+      background-color: rgba(247, 131, 172, 0.1);
+      border: 2px solid transparent;
       transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
     
-    .user-avatar:hover {
+    .user-name:hover {
+      background-color: #f783ac;
+      color: white;
+      text-decoration: none;
       border-color: #e6729a;
-      transform: scale(1.05);
+      transform: translateY(-2px);
     }
 
     /* Estilos para o formulário de edição */
@@ -135,6 +152,13 @@ include 'db.php';
       background-color: #f8d7da;
       color: #721c24;
     }
+
+    /* Ícone do usuário no modal */
+    .user-icon-large {
+      font-size: 4rem;
+      color: #f783ac;
+      margin-bottom: 1rem;
+    }
   </style>
 </head>
 
@@ -162,9 +186,8 @@ include 'db.php';
               <li class="nav-item"><a class="nav-link" href="sobreCadastrado.php">Sobre</a></li>
             </ul>
             <div class="user_option">
-              <a href="#" id="abrirPerfilModal" class="user_link">
-                <!-- Avatar SEMPRE com foto padrão -->
-                <img src="../images/avatar-default.png" alt="Perfil" class="user-avatar">
+              <a href="#" id="abrirPerfilModal" class="user_name">
+                <i class="fa fa-user"></i> <?php echo htmlspecialchars($nome_usuario); ?>
               </a>
             </div>
           </div>
@@ -205,8 +228,10 @@ include 'db.php';
               </div>
             <?php endif; ?>
 
-            <!-- Foto SEMPRE padrão -->
-            <img src="../images/avatar-default.png" alt="Foto do perfil" class="perfil-img mb-3">
+            <!-- Ícone do usuário -->
+            <div class="user-icon-large">
+              <i class="fa fa-user-circle"></i>
+            </div>
             
             <?php
             // Buscar dados do usuário logado
@@ -269,8 +294,10 @@ include 'db.php';
           <div class="modal-body">
             <form id="formEditarPerfil" action="../includes/update_profile.php" method="POST">
               <div class="form-group text-center">
-                <img src="../images/avatar-default.png" alt="Foto do perfil" class="perfil-img mb-3">
-                <small class="form-text text-muted d-block">Foto padrão do sistema</small>
+                <div class="user-icon-large">
+                  <i class="fa fa-user-circle"></i>
+                </div>
+                <p class="text-muted">Perfil sem foto</p>
               </div>
 
               <div class="form-group">

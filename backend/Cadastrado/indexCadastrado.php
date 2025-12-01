@@ -1,4 +1,8 @@
-<?php include '../includes/headerCadastrado.php'; ?>
+<?php 
+include '../includes/headerCadastrado.php'; 
+include '../includes/db.php';
+include '../includes/profissional_functions.php';
+?>
   
   <!-- slider section -->
     <section class="slider_section">
@@ -53,17 +57,35 @@
           <div class="col-md-8">
             <h3>Juliana Wolff</h3>
             <p class="text-muted">Especialista Capilar | Proprietária</p>
-            <p>Com mais de 12 anos de experiência no mercado de beleza, transformo cabelos e autoestimas com técnicas avançadas e atendimento personalizado.</p>
+            <p><?php echo exibirSobre($conn); ?></p>
             <h5>Formação Profissional</h5>
             <ul>
-              <li>Graduação em Estética e Cosmética</li>
-              <li>Pós-graduação em Tricologia Capilar</li>
-              <li>Certificação Internacional em Colorimetria</li>
+              <?php 
+              $formacoes = getInformacoesProfissional($conn, 'formacao');
+              if (empty($formacoes)) {
+                  echo '<li>Graduação em Estética e Cosmética</li>';
+                  echo '<li>Pós-graduação em Tricologia Capilar</li>';
+                  echo '<li>Certificação Internacional em Colorimetria</li>';
+              } else {
+                  foreach (array_slice($formacoes, 0, 3) as $formacao) {
+                      echo '<li>' . htmlspecialchars($formacao['titulo']) . '</li>';
+                  }
+              }
+              ?>
             </ul>
             <h5>Especialidades</h5>
-            <span class="specialty-badge">Cabelos Danificados</span>
-            <span class="specialty-badge">Coloração Vegana</span>
-            <span class="specialty-badge">Cortes Personalizados</span>
+            <?php 
+            $especialidades = getInformacoesProfissional($conn, 'especialidade');
+            if (empty($especialidades)) {
+                echo '<span class="specialty-badge">Cabelos Danificados</span>';
+                echo '<span class="specialty-badge">Coloração Vegana</span>';
+                echo '<span class="specialty-badge">Cortes Personalizados</span>';
+            } else {
+                foreach (array_slice($especialidades, 0, 3) as $especialidade) {
+                    echo '<span class="specialty-badge">' . htmlspecialchars($especialidade['titulo']) . '</span>';
+                }
+            }
+            ?>
           </div>
         </div>
       </div>

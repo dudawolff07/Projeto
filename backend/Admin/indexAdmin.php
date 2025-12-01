@@ -1,60 +1,58 @@
-<?php include '../includes/headerAdmin.php'; ?>
-<section class="food_section layout_padding">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Painel administrativo
-        </h2>
-      </div>
+<?php
+include '../includes/auth_redirect.php';
+requireAuth([1]); // Somente admin
+include '../includes/headerAdmin.php';
 
-  <div class="dashboard-container">
-    <div class="dashboard-card">
-      <h5>Profissionais</h5>
-      <p>1 cadastrado</p>
-      <a href="sobreAdmin.php" class="btn-rosa">Gerenciar</a>
-    </div>
-    
-    <div class="dashboard-card">
-      <h5>Serviços</h5>
-      <p>12 ativos</p>
-      <a href="catalogoAdmin.php" class="btn-rosa">Ver Catálogo</a>
-    </div>
-    
-    <div class="dashboard-card">
-      <h5>Próximos Agendamentos</h5>
-      <p>3 hoje</p>
-      <a href="agendaAdmin.php" class="btn-rosa">Ver Agenda</a>
-    </div>
-  </div>
+include '../includes/db.php';
+
+// Buscar dados reais
+$stmt = $conn->prepare("SELECT COUNT(*) as total FROM usuario WHERE tipo_id = 2");
+$stmt->execute();
+$result = $stmt->get_result();
+$usuarios_cadastrados = $result->fetch_assoc()['total'];
+
+$stmt = $conn->prepare("SELECT COUNT(*) as total FROM procedimento");
+$stmt->execute();
+$result = $stmt->get_result();
+$servicos_ativos = $result->fetch_assoc()['total'];
+
+$stmt = $conn->prepare("SELECT COUNT(*) as total FROM agendamento WHERE data_procedimento = CURDATE() AND status_procedimento != 'cancelado'");
+$stmt->execute();
+$result = $stmt->get_result();
+$agendamentos_hoje = $result->fetch_assoc()['total'];
+?>
+
+<section class="food_section layout_padding">
+    <div class="heading_container heading_center">
+    <h2>Painel Administrativo</h2>
+    <p class="text-muted">Bem-vindo, <?php echo $_SESSION['usuario_nome']; ?>!</p>
 </div>
+
+      <div class="dashboard-container">
+        <div class="dashboard-card">
+          <h5>Clientes Cadastrados</h5>
+          <p><?php echo $usuarios_cadastrados; ?> clientes</p>
+          <a href="relatorios.php" class="btn-rosa">Ver Relatório</a>
+        </div>
+        
+        <div class="dashboard-card">
+          <h5>Serviços</h5>
+          <p><?php echo $servicos_ativos; ?> ativos</p>
+          <a href="catalogoAdmin.php" class="btn-rosa">Ver Catálogo</a>
+        </div>
+        
+        <div class="dashboard-card">
+          <h5>Agendamentos Hoje</h5>
+          <p><?php echo $agendamentos_hoje; ?> agendamentos</p>
+          <a href="agendaAdmin.php" class="btn-rosa">Ver Agenda</a>
+        </div>
+      </div>
+    </div>
 </section>
 
 <?php include '../includes/footer.php'; ?>
 
 <style>
-/* Garantir que o footer fique na parte inferior */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main {
-    flex: 1 0 auto;
-}
-
-.footer_section {
-    flex-shrink: 0;
-    margin-top: auto;
-}
-
-/* Estilos para o dashboard */
 .dashboard-container {
   display: flex;
   justify-content: center;

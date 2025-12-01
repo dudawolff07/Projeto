@@ -1,456 +1,586 @@
-<?php 
-session_start();
+<?php
+include '../includes/auth_redirect.php';
+requireAuth([1]); // Somente admin
+include '../includes/headerAdmin.php';
+include '../includes/db.php';
 
-// Inicializar array de produtos na sessão se não existir
-if (!isset($_SESSION['produtos'])) {
-    $_SESSION['produtos'] = [
-        [
-            'id' => 1,
-            'nome' => 'Corte + Hidratação',
-            'descricao' => 'Transformação completa para seu cabelo com corte personalizado e hidratação profunda para devolver a saúde aos fios.',
-            'preco' => 120,
-            'categoria' => 'combos',
-            'imagem' => '../images/corteEhidratacao.jpg'
-        ],
-        [
-            'id' => 2,
-            'nome' => 'Penteado Simples',
-            'descricao' => 'Ideal para quem busca realçar a beleza do cabelo de forma natural e elegante para o dia a dia ou ocasiões especiais.',
-            'preco' => 80,
-            'categoria' => 'penteados',
-            'imagem' => '../images/penteadoSimples.png'
-        ],
-        [
-            'id' => 3,
-            'nome' => 'Corte + Penteado Simples',
-            'descricao' => 'Ideal para quem busca realçar a beleza do cabelo de forma natural e elegante para o dia a dia ou ocasiões especiais.',
-            'preco' => 80,
-            'categoria' => 'combos',
-            'imagem' => '../images/cortePenteado.jpg'
-        ],
-        [
-            'id' => 4,
-            'nome' => 'Hidratação Profunda',
-            'descricao' => 'Tratamento intensivo que nutre e recupera os fios danificados, devolvendo brilho, maciez e vitalidade ao cabelo.',
-            'preco' => 90,
-            'categoria' => 'tratamentos',
-            'imagem' => '../images/tratamento.png'
-        ],
-        [
-            'id' => 5,
-            'nome' => 'Progressiva sem Formol',
-            'descricao' => 'Alisamento moderno que reduz o volume e o frizz sem agredir os fios, com fórmula livre de formol e proteção térmica.',
-            'preco' => 180,
-            'categoria' => 'progressiva',
-            'imagem' => '../images/alisamentosemformol.png'
-        ],
-        [
-            'id' => 6,
-            'nome' => 'Corte Feminino',
-            'descricao' => 'Corte personalizado de acordo com o formato do seu rosto e estilo pessoal, realizado por profissionais especializados.',
-            'preco' => 70,
-            'categoria' => 'corte',
-            'imagem' => '../images/cortefeminino.png'
-        ],
-        [
-            'id' => 7,
-            'nome' => 'Coloração',
-            'descricao' => 'Transforme seu visual com nossa coloração profissional, utilizando produtos de alta qualidade para um resultado vibrante e duradouro.',
-            'preco' => 70,
-            'categoria' => 'coloracao',
-            'imagem' => '../images/coloracao.png'
-        ]
-    ];
-}
-
-// Processar ações de CRUD
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['acao'])) {
-        switch ($_POST['acao']) {
-            case 'criar':
-                $novoId = count($_SESSION['produtos']) > 0 ? max(array_column($_SESSION['produtos'], 'id')) + 1 : 1;
-                
-                $novoProduto = [
-                    'id' => $novoId,
-                    'nome' => $_POST['nome'],
-                    'descricao' => $_POST['descricao'],
-                    'preco' => floatval($_POST['preco']),
-                    'categoria' => $_POST['categoria'],
-                    'imagem' => $_POST['imagem'] ?: '../images/default.jpg'
-                ];
-                
-                array_push($_SESSION['produtos'], $novoProduto);
-                $_SESSION['sucesso'] = 'Produto criado com sucesso!';
-                break;
-                
-            case 'editar':
-                $id = $_POST['produto_id'];
-                $encontrado = false;
-                foreach ($_SESSION['produtos'] as &$produto) {
-                    if ($produto['id'] == $id) {
-                        $produto['nome'] = $_POST['nome'];
-                        $produto['descricao'] = $_POST['descricao'];
-                        $produto['preco'] = floatval($_POST['preco']);
-                        $produto['categoria'] = $_POST['categoria'];
-                        if (!empty($_POST['imagem'])) {
-                            $produto['imagem'] = $_POST['imagem'];
-                        }
-                        $encontrado = true;
-                        $_SESSION['sucesso'] = 'Produto atualizado com sucesso!';
-                        break;
-                    }
-                }
-                if (!$encontrado) {
-                    $_SESSION['erro'] = 'Produto não encontrado!';
-                }
-                break;
-                
-            case 'excluir':
-                $id = $_POST['produto_id'];
-                $countAntes = count($_SESSION['produtos']);
-                $_SESSION['produtos'] = array_filter($_SESSION['produtos'], function($produto) use ($id) {
-                    return $produto['id'] != $id;
-                });
-                
-                if (count($_SESSION['produtos']) < $countAntes) {
-                    $_SESSION['sucesso'] = 'Produto excluído com sucesso!';
-                } else {
-                    $_SESSION['erro'] = 'Produto não encontrado para exclusão!';
-                }
-                break;
-        }
-    }
-    
-    // Redirecionar para evitar reenvio do formulário
-    header('Location: ' . $_SERVER['PHP_SELF']);
-    exit;
-}
-
-include '../includes/headerAdmin.php'; 
+// Buscar todos os procedimentos
+$result = $conn->query("SELECT * FROM procedimento ORDER BY procedimento_id DESC");
 ?>
 
-<!-- O resto do código permanece igual ao fornecido anteriormente -->
-<section class="food_section layout_padding">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Nossos Serviços Capilares
-        </h2>
-        <button class="btn-rosa" onclick="abrirModalCriar()" style="margin-top: 20px;">
-          + Adicionar Novo Produto
-        </button>
-      </div>
-
-      <ul class="filters_menu">
-        <li class="active" data-filter="*">Todos</li>
-        <li data-filter=".penteados">Penteados</li>
-        <li data-filter=".corte">Cortes</li>
-        <li data-filter=".combos">Combos</li>
-        <li data-filter=".tratamentos">Tratamentos</li>
-        <li data-filter=".progressiva">Progressiva</li>
-        <li data-filter=".coloracao">Coloração</li>
-      </ul>
-
-      <div class="filters-content">
-        <div class="row grid">
-          <?php foreach ($_SESSION['produtos'] as $produto): ?>
-          <div class="col-sm-6 col-lg-4 all <?= $produto['categoria'] ?>">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="<?= $produto['imagem'] ?>" alt="<?= htmlspecialchars($produto['nome']) ?>">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    <?= htmlspecialchars($produto['nome']) ?>
-                  </h5>
-                  <p>
-                    <?= htmlspecialchars($produto['descricao']) ?>
-                  </p>
-                  <div class="options">
-                    <h6>
-                      R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
-                    </h6>
-                    <div class="adm-actions">
-                      <button onclick="editarProduto(<?= $produto['id'] ?>)" title="Editar" class="btn-editar">✏️</button>
-                      <button onclick="apagarProduto(<?= $produto['id'] ?>)" title="Excluir" class="btn-apagar">🗑️</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
+<div class="container mt-4">
+    <div class="heading_container heading_center mb-4">
+        <h2>Catálogo de Procedimentos</h2>
     </div>
-</section>
 
-<!-- Modal para Criar/Editar Produto -->
-<div id="modalProduto" class="login-modal" style="display: none;">
-  <div class="modal-content adm-modal-content">
-    <span class="close-modal" onclick="fecharModal()">&times;</span>
-    <h3 id="modalTitulo" class="modal-title">Novo Produto</h3>
-    <form id="formProduto" class="form-produto" method="POST">
-      <input type="hidden" id="produtoId" name="produto_id" value="">
-      <input type="hidden" name="acao" id="acao" value="criar">
-      
-      <div class="form-group">
-        <input type="text" id="nomeProduto" name="nome" placeholder="Nome do Produto" required>
-      </div>
-      <div class="form-group">
-        <textarea id="descricaoProduto" name="descricao" placeholder="Descrição" required></textarea>
-      </div>
-      <div class="form-group">
-        <input type="number" id="precoProduto" name="preco" step="0.01" min="0" placeholder="Preço (R$)" required>
-      </div>
-      <div class="form-group">
-        <select id="categoriaProduto" name="categoria" required>
-          <option value="">Selecione a Categoria</option>
-          <option value="penteados">Penteados</option>
-          <option value="corte">Cortes</option>
-          <option value="combos">Combos</option>
-          <option value="tratamentos">Tratamentos</option>
-          <option value="progressiva">Progressiva</option>
-          <option value="coloracao">Coloração</option>
-        </select>
-      </div>
-      <div class="form-group">
-<input type="file" class="form-control" name="imagem" accept="image/*">
-      </div>
-      <div class="form-buttons">
-        <button type="submit" class="btn-rosa">Salvar Produto</button>
-        <button type="button" class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
-      </div>
-    </form>
-  </div>
+    <?php if (isset($_GET['msg'])): ?>
+        <div class="alert alert-success alert-dismissible fade show">
+            <?php
+            if ($_GET['msg'] === 'adicionado') echo "Procedimento adicionado com sucesso!";
+            if ($_GET['msg'] === 'editado') echo "Procedimento editado com sucesso!";
+            if ($_GET['msg'] === 'removido') echo "Procedimento removido com sucesso!";
+            ?>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Cabeçalho de Ações -->
+    <div class="card border-0 shadow-soft mb-4">
+        <div class="card-header bg-light-pink text-white border-0 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-concierge-bell mr-2"></i>Gerenciar Procedimentos</h5>
+                <div>
+                    <span class="badge badge-light mr-2"><?= $result->num_rows ?> procedimentos</span>
+                    <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#modalAdd">
+                        <i class="fa fa-plus"></i> Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabela de Procedimentos (SIMPLIFICADA - SEM MODAIS REPETIDOS) -->
+    <div class="card border-0 shadow-soft mb-5">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 catalog-table">
+                    <thead class="catalog-thead">
+                        <tr>
+                            <th class="px-3">ID</th>
+                            <th class="px-3">Nome</th>
+                            <th class="px-3">Valor</th>
+                            <th class="px-3">Tempo</th>
+                            <th class="px-3">Categoria</th>
+                            <th class="px-3">Foto</th>
+                            <th class="px-3">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php if ($result->num_rows > 0): ?>
+                        <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td class="px-3"><?= $row['procedimento_id'] ?></td>
+                            <td class="px-3">
+                                <strong><?= htmlspecialchars($row['nome_procedimento']) ?></strong>
+                                <?php if (!empty($row['descricao_procedimento'])): ?>
+                                    <br><small class="text-muted"><?= htmlspecialchars(substr($row['descricao_procedimento'], 0, 50)) ?>...</small>
+                                <?php endif; ?>
+                            </td>
+                            <td class="px-3 text-price">R$ <?= number_format($row['valor_procedimento'], 2, ',', '.') ?></td>
+                            <td class="px-3">
+                                <span class="badge badge-time"><?= $row['tempo_procedimento'] ?> min</span>
+                            </td>
+                            <td class="px-3">
+                                <span class="badge badge-category"><?= htmlspecialchars($row['categoria_procedimento']) ?></span>
+                            </td>
+                            <td class="px-3">
+                                <?php if (!empty($row['foto_procedimento'])): ?>
+                                    <img src="data:image/jpeg;base64,<?= base64_encode($row['foto_procedimento']) ?>" 
+                                         width="60" height="60" 
+                                         style="object-fit: cover; border-radius: 8px; border: 2px solid #ffdeeb;" 
+                                         alt="Foto"
+                                         class="img-thumbnail">
+                                <?php else: ?>
+                                    <img src="../images/sem-foto.png" 
+                                         width="60" height="60" 
+                                         style="object-fit: cover; border-radius: 8px; border: 2px solid #ffdeeb;" 
+                                         alt="Sem imagem"
+                                         class="img-thumbnail">
+                                <?php endif; ?>
+                            </td>
+                            <td class="px-3">
+                                <div class="action-buttons">
+                                    <!-- BOTÃO EDITAR -->
+                                    <button class="btn btn-primary btn-sm btn-action edit-btn" 
+                                            data-id="<?= $row['procedimento_id'] ?>"
+                                            data-nome="<?= htmlspecialchars($row['nome_procedimento']) ?>"
+                                            data-valor="<?= $row['valor_procedimento'] ?>"
+                                            data-tempo="<?= $row['tempo_procedimento'] ?>"
+                                            data-categoria="<?= $row['categoria_procedimento'] ?>"
+                                            data-descricao="<?= htmlspecialchars($row['descricao_procedimento'] ?? '') ?>"
+                                            data-foto="<?= !empty($row['foto_procedimento']) ? '1' : '0' ?>">
+                                        <i class="fa fa-edit"></i> Editar
+                                    </button>
+                                    <!-- BOTÃO EXCLUIR -->
+                                    <button class="btn btn-danger btn-sm btn-action mt-1 delete-btn" 
+                                            data-id="<?= $row['procedimento_id'] ?>"
+                                            data-nome="<?= htmlspecialchars($row['nome_procedimento']) ?>">
+                                        <i class="fa fa-trash"></i> Excluir
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7" class="text-center py-5 px-3">
+                                <i class="fa fa-inbox fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">Nenhum procedimento cadastrado ainda.</h5>
+                                <button class="btn btn-rosa mt-3" data-toggle="modal" data-target="#modalAdd">
+                                    <i class="fa fa-plus"></i> Adicionar Primeiro Procedimento
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Modal de Confirmação de Exclusão -->
-<div id="modalConfirmacao" class="login-modal" style="display: none;">
-  <div class="modal-content adm-modal-content">
-    <h3>Confirmar Exclusão</h3>
-    <p>Tem certeza que deseja excluir este produto?</p>
-    <form id="formExcluir" method="POST">
-      <input type="hidden" name="acao" value="excluir">
-      <input type="hidden" id="excluirProdutoId" name="produto_id" value="">
-      <div class="form-buttons">
-        <button type="submit" class="btn-apagar">Sim, Excluir</button>
-        <button type="button" class="btn-cancelar" onclick="fecharModalConfirmacao()">Cancelar</button>
-      </div>
-    </form>
-  </div>
+<!-- Modal Adicionar Novo Procedimento (MANTIDO ORIGINAL) -->
+<div class="modal fade" id="modalAdd" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="../includes/catalogo_process.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="acao" value="adicionar">
+                <div class="modal-header bg-light-pink text-white">
+                    <h5 class="modal-title">Adicionar Novo Procedimento</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nome do Procedimento:</label>
+                        <input type="text" class="form-control" name="nome_procedimento" placeholder="Ex: Corte Feminino, Hidratação Profunda..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Valor (R$):</label>
+                        <input type="number" class="form-control" name="valor_procedimento" step="0.01" min="0" placeholder="0.00" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tempo de Duração (minutos):</label>
+                        <input type="number" class="form-control" name="tempo_procedimento" min="15" max="480" placeholder="Ex: 60 para 1 hora" required>
+                        <small class="form-text text-muted">Tempo estimado em minutos (15min à 8 horas)</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria:</label>
+                        <select class="form-control" name="categoria_procedimento" required>
+                            <option value="">Selecione uma categoria</option>
+                            <option value="penteados">Penteados</option>
+                            <option value="corte">Cortes</option>
+                            <option value="combos">Combos</option>
+                            <option value="tratamentos">Tratamentos</option>
+                            <option value="progressiva">Progressiva</option>
+                            <option value="coloracao">Coloração</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição do Serviço:</label>
+                        <textarea class="form-control" name="descricao_procedimento" rows="3" placeholder="Descreva detalhes do procedimento, benefícios, etc..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Foto do Procedimento:</label>
+                        <input type="file" class="form-control-file" name="foto_procedimento" accept="image/*">
+                        <small class="form-text text-muted">Formatos: JPG, PNG, GIF. Tamanho máximo: 2MB</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-rosa">
+                        <i class="fa fa-plus"></i> Adicionar Procedimento
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<?php 
-// Adicionar notificações
-if (isset($_SESSION['sucesso'])): ?>
-<div class="alert alert-sucesso">
-    <?= $_SESSION['sucesso']; unset($_SESSION['sucesso']); ?>
+<!-- Modal Editar Dinâmico (ÚNICO - REUTILIZÁVEL) -->
+<div class="modal fade" id="modalEdit" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="../includes/catalogo_process.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="acao" value="editar">
+                <input type="hidden" name="procedimento_id" id="edit_id">
+                
+                <div class="modal-header bg-light-pink text-white">
+                    <h5 class="modal-title">Editar Procedimento</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nome do Procedimento:</label>
+                        <input type="text" class="form-control" name="nome_procedimento" id="edit_nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Valor (R$):</label>
+                        <input type="number" class="form-control" name="valor_procedimento" id="edit_valor" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tempo de Duração (minutos):</label>
+                        <input type="number" class="form-control" name="tempo_procedimento" id="edit_tempo" min="15" max="480" required>
+                        <small class="form-text text-muted">Tempo estimado em minutos (ex: 60 = 1 hora, 90 = 1h30)</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria:</label>
+                        <select class="form-control" name="categoria_procedimento" id="edit_categoria" required>
+                            <option value="penteados">Penteados</option>
+                            <option value="corte">Cortes</option>
+                            <option value="combos">Combos</option>
+                            <option value="tratamentos">Tratamentos</option>
+                            <option value="progressiva">Progressiva</option>
+                            <option value="coloracao">Coloração</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição do Serviço:</label>
+                        <textarea class="form-control" name="descricao_procedimento" id="edit_descricao" rows="3" placeholder="Descreva o procedimento..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Foto do Procedimento:</label>
+                        <input type="file" class="form-control-file" name="foto_procedimento" accept="image/*">
+                        <small class="form-text text-muted" id="foto_status">Nenhuma foto cadastrada</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-rosa">
+                        <i class="fa fa-save"></i> Salvar Alterações
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<?php endif; ?>
 
-<?php if (isset($_SESSION['erro'])): ?>
-<div class="alert alert-erro">
-    <?= $_SESSION['erro']; unset($_SESSION['erro']); ?>
+<!-- Modal Excluir Dinâmico (ÚNICO - REUTILIZÁVEL) -->
+<div class="modal fade" id="modalDelete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="../includes/catalogo_process.php" method="POST">
+                <input type="hidden" name="acao" value="remover">
+                <input type="hidden" name="procedimento_id" id="delete_id">
+                <div class="modal-header bg-light-pink text-white">
+                    <h5 class="modal-title">Confirmar Exclusão</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir o procedimento:</p>
+                    <h6 class="text-danger" id="delete_nome"></h6>
+                    <p class="text-muted">Esta ação não pode ser desfeita.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i> Excluir
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<?php endif; ?>
+
+<!-- JAVASCRIPT PARA CONTROLAR OS MODAIS DINÂMICOS -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Modal de Edição
+    const editButtons = document.querySelectorAll('.edit-btn');
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Pegar os dados do botão clicado
+            const id = this.getAttribute('data-id');
+            const nome = this.getAttribute('data-nome');
+            const valor = this.getAttribute('data-valor');
+            const tempo = this.getAttribute('data-tempo');
+            const categoria = this.getAttribute('data-categoria');
+            const descricao = this.getAttribute('data-descricao');
+            const temFoto = this.getAttribute('data-foto');
+            
+            // Preencher o formulário de edição
+            document.getElementById('edit_id').value = id;
+            document.getElementById('edit_nome').value = nome;
+            document.getElementById('edit_valor').value = valor;
+            document.getElementById('edit_tempo').value = tempo;
+            document.getElementById('edit_categoria').value = categoria;
+            document.getElementById('edit_descricao').value = descricao;
+            
+            // Atualizar status da foto
+            const fotoStatus = document.getElementById('foto_status');
+            if (temFoto === '1') {
+                fotoStatus.textContent = '✓ Foto atual disponível (o upload de nova foto substituirá a atual)';
+                fotoStatus.className = 'form-text text-success';
+            } else {
+                fotoStatus.textContent = 'Nenhuma foto cadastrada';
+                fotoStatus.className = 'form-text text-muted';
+            }
+            
+            // Abrir modal
+            $('#modalEdit').modal('show');
+        });
+    });
+    
+    // Modal de Exclusão
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const nome = this.getAttribute('data-nome');
+            
+            document.getElementById('delete_id').value = id;
+            document.getElementById('delete_nome').textContent = `"${nome}"`;
+            
+            $('#modalDelete').modal('show');
+        });
+    });
+});
+</script>
 
 <style>
-.alert {
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1100;
-    max-width: 300px;
+/* ESTILOS HARMONIZADOS CATALOGOADMIN */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 1px solid #ffdeeb;
 }
 
-.alert-sucesso {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(247, 131, 172, 0.15);
 }
 
-.alert-erro {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+.bg-light-pink {
+    background: linear-gradient(135deg, #f783ac, #e64980) !important;
 }
 
-.adm-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
+.card-header.bg-light-pink {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-
-.login-modal {
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.adm-modal-content {
-  background-color: #fefefe;
-  padding: 25px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 500px;
-  position: relative;
-}
-
-.close-modal {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.form-produto {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.form-group textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.form-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 15px;
+.card-header.bg-light-pink h5 {
+    color: white;
+    font-weight: 600;
 }
 
 .btn-rosa {
-  background-color: #ff4b8b;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+    background: linear-gradient(135deg, #f783ac, #e64980);
+    border: none;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .btn-rosa:hover {
-  background-color: #e63d7a;
+    background: linear-gradient(135deg, #e64980, #f783ac);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(232, 62, 140, 0.3);
+    color: white;
 }
 
-.btn-cancelar {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+.btn-light {
+    background: rgba(255,255,255,0.9);
+    border: none;
+    color: #e64980;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-.btn-cancelar:hover {
-  background-color: #5a6268;
+.btn-light:hover {
+    background: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255,255,255,0.3);
 }
 
-.btn-salvar {
-  background-color: #4CAF50;
+.btn-primary {
+    background: linear-gradient(135deg, #17a2b8, #138496) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600;
 }
 
-.btn-salvar:hover {
-  background-color: #45a049;
+.btn-primary:hover {
+    background: linear-gradient(135deg, #138496, #17a2b8) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
 }
 
-.btn-apagar {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+.btn-danger {
+    background: linear-gradient(135deg, #e64980, #c2185b) !important;
+    border: none !important;
+    font-weight: 600;
 }
 
-.btn-apagar:hover {
-  background-color: #d32f2f;
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c2185b, #e64980) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(230, 73, 128, 0.3);
+}
+
+.catalog-table {
+    border: none;
+}
+
+.catalog-thead {
+    background: linear-gradient(135deg, #fff0f6, #ffdeeb) !important;
+}
+
+.catalog-thead th {
+    color: #e64980 !important;
+    font-weight: 700;
+    border-bottom: 2px solid #f783ac;
+    padding: 15px 1rem;
+    background: transparent !important;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 12px 1rem;
+    border-color: #f8f9fa;
+}
+
+.catalog-table tbody tr {
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.catalog-table tbody tr:hover {
+    background-color: rgba(247, 131, 172, 0.05) !important;
+    transform: translateX(2px);
+    border-left-color: #f783ac;
+}
+
+.badge-category {
+    background: linear-gradient(135deg, #f783ac, #e64980);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.4em 0.8em;
+    font-weight: 600;
+}
+
+.badge-time {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.4em 0.8em;
+    font-weight: 600;
+}
+
+.badge-light {
+    background: rgba(255,255,255,0.9) !important;
+    color: #e64980 !important;
+    font-weight: 600;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.btn-action {
+    width: 100%;
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 20px;
+    border: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.modal-header.bg-light-pink {
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-header.bg-light-pink .modal-title {
+    color: white;
+    font-weight: 700;
+}
+
+.modal-header.bg-light-pink .close {
+    color: white;
+    opacity: 0.8;
+}
+
+.modal-header.bg-light-pink .close:hover {
+    opacity: 1;
+}
+
+.form-control {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #f783ac;
+    box-shadow: 0 0 0 0.2rem rgba(247, 131, 172, 0.25);
+}
+
+.text-price {
+    font-weight: 700;
+    color: #e64980;
+    font-size: 1.05em;
+}
+
+.img-thumbnail {
+    transition: transform 0.3s ease;
+}
+
+.img-thumbnail:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .btn-action {
+        width: auto;
+        flex: 1;
+        min-width: 70px;
+        margin: 2px;
+        font-size: 11px;
+    }
+    
+    .table td, .table th {
+        padding: 10px 0.5rem;
+    }
+    
+    .catalog-thead th {
+        font-size: 0.8rem;
+        padding: 12px 0.5rem;
+    }
+    
+    .card-header.bg-light-pink .d-flex {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-action {
+        width: 100%;
+        font-size: 10px;
+    }
+    
+    .card-header.bg-light-pink h5 {
+        font-size: 1rem;
+    }
 }
 </style>
-
-<script>
-// Variáveis globais
-let produtos = <?= json_encode($_SESSION['produtos']) ?>;
-
-// Funções para abrir modais
-function abrirModalCriar() {
-  document.getElementById('modalTitulo').textContent = 'Novo Produto';
-  document.getElementById('acao').value = 'criar';
-  document.getElementById('produtoId').value = '';
-  document.getElementById('formProduto').reset();
-  document.getElementById('modalProduto').style.display = 'block';
-}
-
-function editarProduto(id) {
-  const produto = produtos.find(p => p.id == id);
-  
-  if (produto) {
-    document.getElementById('modalTitulo').textContent = 'Editar Produto';
-    document.getElementById('acao').value = 'editar';
-    document.getElementById('produtoId').value = produto.id;
-    document.getElementById('nomeProduto').value = produto.nome;
-    document.getElementById('descricaoProduto').value = produto.descricao;
-    document.getElementById('precoProduto').value = produto.preco;
-    document.getElementById('categoriaProduto').value = produto.categoria;
-    document.getElementById('imagemProduto').value = produto.imagem;
-    
-    document.getElementById('modalProduto').style.display = 'block';
-  }
-}
-
-function apagarProduto(id) {
-  document.getElementById('excluirProdutoId').value = id;
-  document.getElementById('modalConfirmacao').style.display = 'block';
-}
-
-// Funções para fechar modais
-function fecharModal() {
-  document.getElementById('modalProduto').style.display = 'none';
-}
-
-function fecharModalConfirmacao() {
-  document.getElementById('modalConfirmacao').style.display = 'none';
-}
-
-// Esconder alertas automaticamente após 5 segundos
-setTimeout(() => {
-    const alerts = document.querySelectorAll('.alert');
-    alerts.forEach(alert => {
-        alert.style.display = 'none';
-    });
-}, 5000);
-</script>
 
 <?php include '../includes/footer.php'; ?>
