@@ -13,10 +13,17 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
-function getUserInfo($pdo, $usuario_id) {
-    $stmt = $pdo->prepare("SELECT nome_usuario, email_usuario FROM usuario WHERE usuario_id = ?");
-    $stmt->execute([$usuario_id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+function getUserInfo($conn, $usuario_id) {
+    // Mudei de PDO para MySQLi
+    $stmt = $conn->prepare("SELECT nome_usuario, email_usuario FROM usuario WHERE usuario_id = ?");
+    $stmt->bind_param("i", $usuario_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        return $result->fetch_assoc();
+    }
+    return false;
 }
 
 function isAdmin() {
